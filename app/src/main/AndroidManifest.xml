@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SharePlan">
         <activity
+            android:name=".CreateLecActivity"
+            android:exported="true" />
+        <activity
             android:name=".ClassListActivity"
             android:exported="false" />
         <activity
@@ -17,15 +20,16 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ScheduleActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ScheduleActivity"
+            android:exported="false">
         </activity>
         <activity
             android:name=".MainActivity"
