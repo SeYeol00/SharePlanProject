@@ -10,12 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SharePlan">
         <activity
-<<<<<<< HEAD
+            android:name=".CreateLecActivity"
+            android:exported="true" />
+        <activity
             android:name=".ClassListActivity"
             android:exported="false" />
         <activity
-=======
->>>>>>> origin/master
             android:name=".RegisterActivity"
             android:exported="true" />
         <activity
