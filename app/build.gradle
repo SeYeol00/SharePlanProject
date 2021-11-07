@@ -7,8 +7,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.shareplan"
-        minSdk 30
-        targetSdk 31
+        minSdk 29
+        targetSdk 30
         versionCode 1
         versionName "1.0"
 
