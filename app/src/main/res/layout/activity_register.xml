@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+    <TextView
+        android:id="@+id/title_register"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:text="회원가입"
+        android:textSize="40dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/r_et_id"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="ID를 입력하시오."
+            android:inputType="text"
+            android:textSize="25dp"/>
+        <EditText
+            android:id="@+id/r_et_pw"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="PW를 입력하시오."
+            android:inputType="textPassword"
+            android:textSize="25dp"/>
+        <EditText
+            android:id="@+id/r_et_pw2"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="PW확인"
+            android:inputType="textPassword"
+            android:textSize="25dp"/>
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="이름"
+            android:inputType="textPersonName"
+            android:textSize="25dp"/>
+
+        <EditText
+            android:id="@+id/et_phonenumber"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="전화번호"
+            android:inputType="text"
+            android:textSize="25dp" />
+
+        <EditText
+            android:id="@+id/et_address"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="주소"
+            android:inputType="text"
+            android:textSize="25dp"/>
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="관리자 혹은 교수님 입니까?"/>
+        <RadioGroup
+            android:id="@+id/rg_yesno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="동의" />
+            <RadioButton
+                android:id="@+id/rb_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="비동의" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/r_bt_register"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="회원가입"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

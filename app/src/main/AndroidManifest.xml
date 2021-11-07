@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SharePlan">
         <activity
+            android:name=".ClassListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".ScheduleActivity"
             android:exported="true">
             <intent-filter>
@@ -20,8 +29,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>
