@@ -10,14 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SharePlan">
         <activity
-<<<<<<< HEAD
             android:name=".ClassListActivity"
             android:exported="false" />
         <activity
-=======
->>>>>>> origin/master
             android:name=".RegisterActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true" />
