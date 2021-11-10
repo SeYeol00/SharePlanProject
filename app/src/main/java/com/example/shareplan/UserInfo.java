@@ -5,7 +5,7 @@ public class UserInfo {
     String Id; // 아이디
     String Password; // 비밀번호
     String Name; // 이름
-    Boolean Authority;
+    Boolean Authority;// 강의 생성 권한
 
     public String getPhoneNumber() {
         return PhoneNumber;
@@ -15,7 +15,7 @@ public class UserInfo {
         PhoneNumber = phoneNumber;
     }
 
-    String PhoneNumber;// 강의 생성 권한
+    String PhoneNumber;
 
     public String getEmail() {
         return Email;
