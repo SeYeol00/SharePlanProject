@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             //success Login
                             Intent intent = new Intent(LoginActivity.this, ClassListActivity.class);
+                            intent.putExtra("Email", strEmail);
                             startActivity(intent);
                             finish();
                         } else{
