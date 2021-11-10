@@ -7,17 +7,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class ClassListActivity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseRef;
     private ListViewAdapter mListViewAdapter;
-
+    private FirebaseUser mUser;
+    private ArrayList[] array;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,27 +32,23 @@ public class ClassListActivity extends AppCompatActivity {
 
         mFirebaseAuth =FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("SharePlan");
-
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         Intent intentInformation = getIntent();
-        String strEmail = intentInformation.getStringExtra("Email");
-        mDatabaseRef.child("UserAccount").addValueEventListener(new ValueEventListener() {
+        String uid = mUser.getUid();
+        mDatabaseRef.child("UserLectureInfo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot accountData : snapshot.getChildren()){
-                    UserInfo Info = accountData.getValue(UserInfo.class);
-                    if(strEmail.equals(Info.Email)){
-                       // Info.get
-
-                    }
-                }
-
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
+                           }
+                       })
+
+
+
         });
 
 
