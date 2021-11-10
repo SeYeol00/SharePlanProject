@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "922074473716",
+    "project_id": "shareplan-52a3d",
+    "storage_bucket": "shareplan-52a3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922074473716:android:502e6023b61a7e6e0faaa1",
+        "android_client_info": {
+          "package_name": "com.example.shareplan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "922074473716-l7lmshga7noj153a76e3jn7fgp4cv1u8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX9XyjJqXx4u4HqLhKmKHdchvbLMuDEH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "922074473716-l7lmshga7noj153a76e3jn7fgp4cv1u8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

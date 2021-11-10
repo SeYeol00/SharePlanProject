@@ -22,12 +22,13 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
+
         <EditText
-            android:id="@+id/r_et_id"
+            android:id="@+id/r_et_email"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:hint="ID를 입력하시오."
-            android:inputType="text"
+            android:hint="Email을 입력하시오."
+            android:inputType="textEmailAddress"
             android:textSize="25dp"/>
         <EditText
             android:id="@+id/r_et_pw"
@@ -71,7 +72,7 @@
             android:layout_height="wrap_content"
             android:text="관리자 혹은 교수님 입니까?"/>
         <RadioGroup
-            android:id="@+id/rg_yesno"
+            android:id="@+id/rg_access"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -81,12 +82,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="동의" />
+                android:text="네" />
             <RadioButton
                 android:id="@+id/rb_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="비동의" />
+                android:text="아니오" />
         </RadioGroup>
 
         <Button
