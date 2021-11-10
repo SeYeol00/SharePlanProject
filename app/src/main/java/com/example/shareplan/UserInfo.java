@@ -1,16 +1,21 @@
 package com.example.shareplan;
 
-public class UserInfo
-{
-    String Email;
-    String Id; //Uid
-    String Password;
-    String Name;
-    String PhoneNumber;
-    String Address;
-    Boolean Authority; //권한
+public class UserInfo {
+    String Email; // 이메일
+    String Id; // 아이디
+    String Password; // 비밀번호
+    String Name; // 이름
+    Boolean Authority;
 
-    public UserInfo() { }
+    public String getPhoneNumber() {
+        return PhoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        PhoneNumber = phoneNumber;
+    }
+
+    String PhoneNumber;// 강의 생성 권한
 
     public String getEmail() {
         return Email;
@@ -42,22 +47,6 @@ public class UserInfo
 
     public void setName(String name) {
         Name = name;
-    }
-
-    public String getPhoneNumber() {
-        return PhoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        PhoneNumber = phoneNumber;
-    }
-
-    public String getAddress() {
-        return Address;
-    }
-
-    public void setAddress(String address) {
-        Address = address;
     }
 
     public Boolean getAuthority() {

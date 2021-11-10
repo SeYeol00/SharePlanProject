@@ -1,15 +1,56 @@
 package com.example.shareplan;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class ClassListActivity extends AppCompatActivity {
+    private FirebaseAuth mFirebaseAuth;
+    private DatabaseReference mDatabaseRef;
+    private ListViewAdapter mListViewAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_list);
+
+
+
+        mFirebaseAuth =FirebaseAuth.getInstance();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("SharePlan");
+
+        Intent intentInformation = getIntent();
+        String strEmail = intentInformation.getStringExtra("Email");
+        mDatabaseRef.child("UserAccount").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot accountData : snapshot.getChildren()){
+                    UserInfo Info = accountData.getValue(UserInfo.class);
+                    if(strEmail.equals(Info.Email)){
+                       // Info.get
+
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         // 현재 로그인된 유저의 UID는 로그인시 Intent를 통해서 넘어옴.
         // 유저별 강의 데이터베이스에서, 로그인한 유저의 UID를 통해 유저가 가지고 있는 강의 UID들을 가져옴.
