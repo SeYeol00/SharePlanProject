@@ -7,6 +7,8 @@ public class LectureInfo {
     String Day; // 강의 요일
     String Time; // 강의 시간;
 
+    public LectureInfo() { }
+
     public String getName() {
         return Name;
     }

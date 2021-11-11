@@ -7,6 +7,8 @@ public class UserInfo {
     String Name; // 이름
     Boolean Authority;
 
+    public UserInfo() { }
+
     public String getPhoneNumber() {
         return PhoneNumber;
     }
