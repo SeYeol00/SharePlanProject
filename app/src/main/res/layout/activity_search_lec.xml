@@ -11,7 +11,7 @@
         android:padding="20dp">
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/lec_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -20,7 +20,7 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

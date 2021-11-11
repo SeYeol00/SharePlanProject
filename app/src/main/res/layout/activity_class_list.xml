@@ -27,7 +27,7 @@
                 android:textSize="30dp" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/search"
                 android:layout_width="57dp"
                 android:layout_height="wrap_content"
                 android:text="+" />

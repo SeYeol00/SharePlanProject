@@ -1,21 +1,121 @@
 package com.example.shareplan;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 public class SearchLecActivity extends AppCompatActivity {
+    FirebaseAuth mFirebaseAuth;
+    DatabaseReference mDatabaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_lec);
 
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("SharePlan");
+
+        TextView lecName = findViewById(R.id.lec_name);
+        Button search = findViewById(R.id.search);
+
         ListView listView = (ListView) findViewById(R.id.search_listView);
 
         ListViewAdapter adapter = new ListViewAdapter(SearchLecActivity.this);
         listView.setAdapter(adapter);
+
+        // 특정 강의 클릭 시 유저별 개인 데이터베이스에 해당 강의의 UID 등록
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 유저강의데이터베이스에 값 추가
+                mDatabaseRef.child("LectureInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        LectureInfo touchLec = adapter.getItem(position);
+                        for(DataSnapshot lectureData : snapshot.getChildren()) {
+                            String lecUID = lectureData.getKey();
+                            LectureInfo lecture = lectureData.getValue(LectureInfo.class);
+                            if(lecture.getName().equals(touchLec.getName()) && lecture.getProfessor().equals(touchLec.getProfessor()) &&
+                                    lecture.getDivision().equals(touchLec.getDivision()) && lecture.getDay().equals(touchLec.getDay()) &&
+                                    lecture.getTime().equals(touchLec.getTime())) {
+                                // UserLectureInfo 트리의 하위 멤버에 선택한 Lecture의 UID를 추가함
+                                mDatabaseRef.child("UserLectureInfo").child(lecUID);
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
+        // 검색 버튼 클릭 시 강의명에 검색 키워드가 포함되어 있는 강의들만 리스트뷰에 추가함
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adapter.clear();
+                String name = lecName.getText().toString();
+                mDatabaseRef.child("LectureInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot lectureData : snapshot.getChildren()) {
+                            LectureInfo lecture = lectureData.getValue(LectureInfo.class);
+                            if(lecture.getName().contains(name)) {
+                                adapter.addItem(lecture);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
+        // 초기 화면으로는 모든 강의 리스트를 리스트뷰에 추가하여 보여줌
+        mDatabaseRef.child("LectureInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot lectureData : snapshot.getChildren()) {
+                    LectureInfo lecture = lectureData.getValue(LectureInfo.class);
+                    adapter.addItem(lecture);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         // onCreate에 구현해야 할 기능
         // 1. SearchLecActivity 첫 생성시 기본적으로 FireBase 강의 데이터베이스에 있는 모든 강의 리스트들을 가져와
@@ -31,6 +131,80 @@ public class SearchLecActivity extends AppCompatActivity {
 
         // 2. "찾기" 버튼 클릭 시 관련된 코드를 실행하기 위한 onClickListener 생성
 
+    }
+
+    class LecItemView extends LinearLayout {
+        TextView title;
+        TextView info;
+
+        public LecItemView(Context context) {
+            super(context);
+            init(context);
+        }
+
+        public LecItemView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+            init(context);
+        }
+
+        public void init(Context context) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater.inflate(R.layout.lec_item, this, true);
+
+            title = (TextView) findViewById(R.id.lec_item_name);
+            info = (TextView) findViewById(R.id.lec_item_info);
+        }
+
+        public void setTitle(String name) {
+            title.setText(name);
+        }
+
+        public void setInfo(String desc) {
+            info.setText(desc);
+        }
+    }
+
+    class ListViewAdapter extends BaseAdapter {
+
+        ArrayList<LectureInfo> items = new ArrayList<LectureInfo>();
+
+        public ListViewAdapter(SearchLecActivity searchLecActivity) {
+
+        }
+
+        @Override
+        public int getCount() {
+            return items.size();
+        }
+
+        @Override
+        public LectureInfo getItem(int position) {
+            return items.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LecItemView itemView = new LecItemView(getApplicationContext());
+
+            LectureInfo item = items.get(position);
+            itemView.setTitle(item.getName());
+            String desc = item.getProfessor() + " / " + item.getDivision() + " / " + item.getDay() + " / " + item.getTime();
+            itemView.setInfo(desc);
+            return itemView;
+        }
+
+        public void addItem(LectureInfo item) {
+            items.add(item);
+        }
+
+        public void clear() {
+            items = new ArrayList<LectureInfo>();
+        }
     }
 
     // 3. onClickListener 실행 시 사용할 함수 선언 및 구현 ( onClickListener 안에 구현해도 됨 )
