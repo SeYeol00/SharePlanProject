@@ -2,6 +2,7 @@ package com.example.shareplan;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,7 @@ public class ClassListActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
     private ListViewAdapter mListViewAdapter;
     private FirebaseUser mUser;
-    private ArrayList[] array;
+    private ArrayList<String> lectureArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,18 +39,18 @@ public class ClassListActivity extends AppCompatActivity {
         mDatabaseRef.child("UserLectureInfo").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+            lectureArray = new ArrayList<>();
+
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
-                           }
-                       })
-
+            }
+                       });
 
 
-        });
+
 
 
         // 현재 로그인된 유저의 UID는 로그인시 Intent를 통해서 넘어옴.
