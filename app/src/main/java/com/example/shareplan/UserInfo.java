@@ -5,6 +5,7 @@ public class UserInfo {
     String Id; // 아이디
     String Password; // 비밀번호
     String Name; // 이름
+    String Address;
     Boolean Authority;
 
     public UserInfo() { }
@@ -58,4 +59,8 @@ public class UserInfo {
     public void setAuthority(Boolean authority) {
         Authority = authority;
     }
+
+    public String getAddress() { return Address; }
+
+    public void setAddress(String address) { Address = address; }
 }
