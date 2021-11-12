@@ -20,7 +20,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/classListTextView"
                 android:layout_width="352dp"
                 android:layout_height="match_parent"
                 android:text="강의 목록"
