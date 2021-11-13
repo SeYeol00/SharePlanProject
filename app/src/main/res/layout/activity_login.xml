@@ -16,18 +16,18 @@
         android:text="SharePlan" />
 
     <EditText
-        android:id="@+id/et_id"
+        android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/login_title"
-        android:hint="ID"
-        android:inputType="text" />
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/et_pw"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@+id/et_id"
+        android:layout_below="@+id/et_email"
         android:hint="PW"
         android:inputType="textPassword" />
 

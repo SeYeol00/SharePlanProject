@@ -1,33 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ScheduleActivity">
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <LinearLayout
+        tools:context=".ScheduleActivity"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.applandeo.materialcalendarview.CalendarView
-        android:id="@+id/calendar"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:eventsEnabled="true"
-        app:headerColor="@color/main"
+        app:type="one_day_picker"
         app:selectionColor="@color/main"
-        app:type="one_day_picker">
-
-    </com.applandeo.materialcalendarview.CalendarView>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
-        android:backgroundTint="#FFFFFF"
-        android:text="+"
-        android:textColor="@color/main"
-        android:textSize="23sp"
-        android:textStyle="bold"
-        app:cornerRadius="50dp" />
+        app:headerColor="@color/main"
+        app:eventsEnabled="true"
+        android:id="@+id/calendar"/>
 
 </LinearLayout>
