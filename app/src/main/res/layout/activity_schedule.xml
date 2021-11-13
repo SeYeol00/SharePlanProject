@@ -11,10 +11,23 @@
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
-        app:headerColor="#673AB7"
         app:eventsEnabled="true"
-        app:selectionColor="#673AB7"
-        app:type="one_day_picker" />
+        app:headerColor="@color/main"
+        app:selectionColor="@color/main"
+        app:type="one_day_picker">
+
+    </com.applandeo.materialcalendarview.CalendarView>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:backgroundTint="#FFFFFF"
+        android:text="+"
+        android:textColor="@color/main"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:cornerRadius="50dp" />
 
 </LinearLayout>
