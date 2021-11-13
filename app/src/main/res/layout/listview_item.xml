@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="80dp">
@@ -11,50 +12,39 @@
         android:layout_weight="75"
         android:orientation="horizontal">
 
-        <CheckBox
-            android:id="@+id/memoCheckBox"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:checked="@{memo.check}"
-            android:text="@{memo.content}"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/updateButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="wrap_content"
+            android:layout_width="67dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="clock" />
+            android:text="time" />
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+            android:layout_width="176dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="subject" />
 
         <Button
             android:id="@+id/updateButton2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="50dp"
             android:background="@drawable/pencil_edit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/deleteButton"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/deleteButton2"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="36dp"
             android:background="@drawable/delete_edit"
             android:text="Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
 </LinearLayout>
