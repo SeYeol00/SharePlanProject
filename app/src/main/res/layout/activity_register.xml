@@ -53,6 +53,14 @@
             android:textSize="25dp"/>
 
         <EditText
+            android:id="@+id/et_stunum"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="학번"
+            android:inputType="textPersonName"
+            android:textSize="25dp"/>
+
+        <EditText
             android:id="@+id/et_phonenumber"
             android:layout_width="300dp"
             android:layout_height="wrap_content"

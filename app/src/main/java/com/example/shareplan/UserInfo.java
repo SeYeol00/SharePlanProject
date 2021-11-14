@@ -5,8 +5,10 @@ public class UserInfo {
     String Id; // 아이디
     String Password; // 비밀번호
     String Name; // 이름
+    String Stunum; // 학번
     String Address;
     Boolean Authority;
+    String PhoneNumber;
 
     public UserInfo() { }
 
@@ -18,7 +20,14 @@ public class UserInfo {
         PhoneNumber = phoneNumber;
     }
 
-    String PhoneNumber;// 강의 생성 권한
+
+    public String getStunum() {
+        return Stunum;
+    }
+
+    public void setStunum(String stunum) {
+        Stunum = stunum;
+    }
 
     public String getEmail() {
         return Email;

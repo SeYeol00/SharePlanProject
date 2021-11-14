@@ -32,7 +32,7 @@ public class ScheduleActivity extends AppCompatActivity {
         View v = inflater.inflate(R.layout.ab_schedule, null);
         getSupportActionBar().setCustomView(v);
 
-        CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+        CalendarView calendarView = (CalendarView) findViewById(R.id.calendar);
         Calendar min = Calendar.getInstance();
         min.set(2021, 0, 0);
         calendarView.setMinimumDate(min);

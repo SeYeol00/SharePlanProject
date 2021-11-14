@@ -26,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity
 
     private FirebaseAuth mFirebaseAuth; //Firebase access
     private DatabaseReference mDatabaseRef;  //Real time Database
-    private EditText EtEmail, EtPw, EtPw2, EtName, EtNumber, EtAddress; //Register input
+    private EditText EtEmail, EtPw, EtPw2, EtName, EtNumber, EtAddress, EtStunum; //Register input
     private Button BtRegister; //Register button
     private RadioGroup RgAcess;
     private RadioButton RbYes,RbNo;
@@ -46,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity
         EtName = findViewById(R.id.et_name);
         EtNumber = findViewById(R.id.et_phonenumber);
         EtAddress = findViewById(R.id.et_address);
+        EtStunum = findViewById(R.id.et_stunum);
 
         RgAcess = findViewById(R.id.rg_access);
         RbYes = findViewById(R.id.rb_yes);
@@ -72,6 +73,7 @@ public class RegisterActivity extends AppCompatActivity
                 String strPw = EtPw.getText().toString();
                 String strPw2 = EtPw2.getText().toString();
                 String strName = EtName.getText().toString();
+                String strStunum = EtStunum.getText().toString();
                 String strNumber = EtNumber.getText().toString();
                 String strAddress = EtAddress.getText().toString();
 
@@ -109,6 +111,7 @@ public class RegisterActivity extends AppCompatActivity
                             register.setEmail(firebaseUser.getEmail());
                             register.setPassword(strPw);
                             register.setName(strName);
+                            register.setStunum(strStunum);
                             register.setPhoneNumber(strNumber);
                             register.setAddress(strAddress);
                             register.setAuthority(boolAuthority);
