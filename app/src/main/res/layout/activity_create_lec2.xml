@@ -20,7 +20,7 @@
         android:text="수강생 학번 입력" />
 
     <EditText
-        android:id="@+id/lectureName"
+        android:id="@+id/studentNumber"
         android:layout_width="327dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
