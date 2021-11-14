@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SharePlan">
         <activity
+            android:name=".CreateLec_2_Activity"
+            android:exported="true" />
+        <activity
             android:name=".CreateLecActivity"
             android:exported="true" />
         <activity
