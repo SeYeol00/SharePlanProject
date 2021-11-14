@@ -1,10 +1,24 @@
 package com.example.shareplan;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,20 +48,36 @@ public class ClassListActivity extends AppCompatActivity {
         mFirebaseAuth =FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("SharePlan");
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-        Intent intentInformation = getIntent();
+        ListView listView = (ListView) findViewById(R.id.courseListView);
+
+        ListViewAdapter adapter = new ListViewAdapter(ClassListActivity.this);
+        listView.setAdapter(adapter);
         String uid = mUser.getUid();
-        mDatabaseRef.child("UserLectureInfo").addValueEventListener(new ValueEventListener() {
+        mDatabaseRef.child("UserLectureInfo").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-            lectureArray = new ArrayList<>();
+                lectureArray.clear();
+                for(DataSnapshot lectureUIDSet : snapshot.getChildren()) {
+                    String lectureUID = lectureUIDSet.getKey();
+                    mDatabaseRef.child("LectureInfo").child(lectureUID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            adapter.addItem(snapshot.getValue(LectureInfo.class));
+                        }
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
+                        }
+                    });
+                }
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
-                       });
 
 
 
@@ -68,5 +98,137 @@ public class ClassListActivity extends AppCompatActivity {
         // 받아온 권한에 따라, SearchLec으로 보내야 할지, CreateLec으로 보내야 할지를 결정.
         // 이 때에는 버튼이 클릭될 시에만 실행되어야 하므로,
         // get()이나, addListenerForSingleValueEvent를 사용하는 것이 좋음.
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mDatabaseRef.child("LectureInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        LectureInfo touchLec = adapter.getItem(position);
+                        for(DataSnapshot lectureData : snapshot.getChildren()) {
+                            String lecUID = lectureData.getKey();
+                            LectureInfo lecture = lectureData.getValue(LectureInfo.class);
+                            if(lecture.getName().equals(touchLec.getName()) && lecture.getProfessor().equals(touchLec.getProfessor()) &&
+                                    lecture.getDivision().equals(touchLec.getDivision()) && lecture.getDay().equals(touchLec.getDay()) &&
+                                    lecture.getTime().equals(touchLec.getTime())) {
+                                Intent intent = new Intent(ClassListActivity.this,ScheduleActivity.class);
+                                intent.putExtra("lecUid", lecUID);
+                                startActivity(intent);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
+        Button btn_Next = findViewById(R.id.search);
+
+        btn_Next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDatabaseRef.child("UserInfo").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        UserInfo userInfo = snapshot.getValue(UserInfo.class);
+                        boolean authority= userInfo.getAuthority();
+                        if (authority){
+                            Intent intent = new Intent(ClassListActivity.this,CreateLecActivity.class);
+                            startActivity(intent);
+                        }
+                        else{
+                            Intent intent = new Intent(ClassListActivity.this,SearchLecActivity.class);
+                            startActivity(intent);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
+
+    }
+
+    class LecItemView extends LinearLayout {
+        TextView title;
+        TextView info;
+
+        public LecItemView(Context context) {
+            super(context);
+            init(context);
+        }
+
+        public LecItemView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+            init(context);
+        }
+
+        public void init(Context context) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater.inflate(R.layout.lec_item, this, true);
+
+            title = (TextView) findViewById(R.id.lec_item_name);
+            info = (TextView) findViewById(R.id.lec_item_info);
+        }
+
+        public void setTitle(String name) {
+            title.setText(name);
+        }
+
+        public void setInfo(String desc) {
+            info.setText(desc);
+        }
+    }
+    class ListViewAdapter extends BaseAdapter {
+
+        ArrayList<LectureInfo> items = new ArrayList<LectureInfo>();
+
+        public ListViewAdapter(ClassListActivity ClassListActivity) {
+
+        }
+
+        @Override
+        public int getCount() {
+            return items.size();
+        }
+
+        @Override
+        public LectureInfo getItem(int position) {
+            return items.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LecItemView itemView = new LecItemView(getApplicationContext());
+
+            LectureInfo item = items.get(position);
+            itemView.setTitle(item.getName());
+            String desc = item.getProfessor() + " / " + item.getDivision() + " / " + item.getDay() + " / " + item.getTime();
+            itemView.setInfo(desc);
+            return itemView;
+        }
+
+        public void addItem(LectureInfo item) {
+            items.add(item);
+        }
+
+        public void clear() {
+            items = new ArrayList<LectureInfo>();
+        }
     }
 }
