@@ -1,6 +1,7 @@
 package com.example.shareplan;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,27 +52,60 @@ public class SearchLecActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // 유저강의데이터베이스에 값 추가
-                mDatabaseRef.child("LectureInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+                // 안내메세지 표시
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                builder.setMessage("이 강의를 추가하시겠습니까?");
+
+                builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        LectureInfo touchLec = adapter.getItem(position);
-                        for(DataSnapshot lectureData : snapshot.getChildren()) {
-                            String lecUID = lectureData.getKey();
-                            LectureInfo lecture = lectureData.getValue(LectureInfo.class);
-                            if(lecture.getName().equals(touchLec.getName()) && lecture.getProfessor().equals(touchLec.getProfessor()) &&
-                                    lecture.getDivision().equals(touchLec.getDivision()) && lecture.getDay().equals(touchLec.getDay()) &&
-                                    lecture.getTime().equals(touchLec.getTime())) {
-                                // UserLectureInfo 트리의 하위 멤버에 선택한 Lecture의 UID를 추가함
-                                mDatabaseRef.child("UserLectureInfo").child(lecUID);
-                                break;
-                            }
-                        }
+                    public void onClick(DialogInterface dialog, int which) {
+
                     }
+                });
 
+                // 예 버튼 클릭 시 강의 추가
+                builder.setNegativeButton("예", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 유저강의데이터베이스에 값 추가
+                        mDatabaseRef.child("LectureInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                LectureInfo touchLec = adapter.getItem(position);
+                                for(DataSnapshot lectureData : snapshot.getChildren()) {
+                                    String lecUID = lectureData.getKey();
+                                    LectureInfo lecture = lectureData.getValue(LectureInfo.class);
+                                    if(lecture.getName().equals(touchLec.getName()) && lecture.getProfessor().equals(touchLec.getProfessor()) &&
+                                            lecture.getDivision().equals(touchLec.getDivision()) && lecture.getDay().equals(touchLec.getDay()) &&
+                                            lecture.getTime().equals(touchLec.getTime())) {
+                                        // UserLectureInfo 트리의 하위 멤버에 선택한 Lecture의 UID를 추가함
+                                        ArrayList<String> lecUIDs = new ArrayList<>();
+                                        mDatabaseRef.child("UserLectureInfo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                // 먼저 기존 강의 UID 리스트를 가져온 뒤, 추가하고자 하는 강의의 UID를 추가하고 덮어쓴다.
+                                                for(DataSnapshot lecUIDSet : snapshot.getChildren()) {
+                                                    lecUIDs.add(lecUIDSet.getValue(String.class));
+                                                }
+                                                lecUIDs.add(lecUID);
+                                                mDatabaseRef.child("UserLectureInfo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(lecUIDs);
+                                            }
 
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+                                        break;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 });
             }
