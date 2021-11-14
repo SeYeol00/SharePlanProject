@@ -4,6 +4,21 @@
         tools:context=".ScheduleActivity"
         android:orientation="vertical"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calendarRecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarDateText" />
+=======
         android:layout_width="match_parent"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,5 +32,6 @@
         app:headerColor="@color/main"
         app:eventsEnabled="true"
         android:id="@+id/calendar"/>
+>>>>>>> c437b223126598d5c6f9b53c0aa53154c81bd9b7
 
 </LinearLayout>
