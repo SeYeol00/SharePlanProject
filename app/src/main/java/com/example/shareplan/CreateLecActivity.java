@@ -92,7 +92,7 @@ public class CreateLecActivity extends AppCompatActivity {
                 intent.putExtra("Time",strLecTime);
 
                 startActivity(intent);
-
+                finish();
             }
         });
 
