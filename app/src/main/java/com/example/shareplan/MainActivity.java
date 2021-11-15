@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-        recyclerView = findViewById(R.id.calendarRecyclerview); // 아이디 연결
         recyclerView.setHasFixedSize(true); //리사이클러뷰 기존성능 강화
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -45,9 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 arrayList.clear(); //기존 배열리스트가 존재하지 않게 초기화
                 for (DataSnapshot snapshot1 : snapshot.getChildren()){
                     //반복문으로 데이터 list를 추출해냄
-                    lec_list lec_list = snapshot.getValue(lec_list.class); //만들어뒀던 lec객체에 데이터를 담는다.
-                    arrayList.add(lec_list); //담은 데이터들을 배열리스트에 넣고 리사이클러뷰에 보낼 준비
-                }
+                      }
                 adapter.notifyDataSetChanged(); //리스트 저장 및 새로고침
             }
 
@@ -60,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        adapter = new reAdapter(arrayList, this);
+
         recyclerView.setAdapter(adapter); // 리사이클러뷰에 어댑터 연결
 
     }
