@@ -3,6 +3,8 @@ package com.example.shareplan;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -89,6 +91,9 @@ public class CreateLec_2_Activity extends AppCompatActivity {
 
                     }
                 });
+                Intent intent = new Intent(CreateLec_2_Activity.this,ClassListActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
