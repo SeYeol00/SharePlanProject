@@ -112,7 +112,7 @@ public class ClassListActivity extends AppCompatActivity {
                             if(lecture.getName().equals(touchLec.getName()) && lecture.getProfessor().equals(touchLec.getProfessor()) &&
                                     lecture.getDivision().equals(touchLec.getDivision()) && lecture.getDay().equals(touchLec.getDay()) &&
                                     lecture.getTime().equals(touchLec.getTime())) {
-                                Intent intent = new Intent(ClassListActivity.this,ScheduleActivity.class);
+                                Intent intent = new Intent(ClassListActivity.this, MainActivity.class);
                                 intent.putExtra("lecUid", lecUID);
                                 startActivity(intent);
                             }
