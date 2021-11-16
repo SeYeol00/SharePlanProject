@@ -15,14 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class reAdapter extends RecyclerView.Adapter<reAdapter.reViewHolder> {
-    Button deleteButton;
-    Button updateButton;
 
-    private ArrayList<lec_list> arrayList;
+    private ArrayList<TodoInfo> arrayList;
     private Context context;
 
 
-    public reAdapter(ArrayList<lec_list> arrayList, Context context) {
+    public reAdapter(ArrayList<TodoInfo> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -37,8 +35,8 @@ public class reAdapter extends RecyclerView.Adapter<reAdapter.reViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull reViewHolder holder, int position) {
-        holder.lectime.setText(arrayList.get(position).getTime());
-        holder.lecsubject.setText(arrayList.get(position).getName());
+        holder.lectime.setText(arrayList.get(position).getDate());
+        holder.lecsubject.setText(arrayList.get(position).getTitle());
 
     }
 
