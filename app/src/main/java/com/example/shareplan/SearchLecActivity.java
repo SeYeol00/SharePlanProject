@@ -2,6 +2,7 @@ package com.example.shareplan;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -29,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class SearchLecActivity extends AppCompatActivity {
-    FirebaseAuth mFirebaseAuth;
     DatabaseReference mDatabaseRef;
 
     @Override
@@ -37,8 +37,10 @@ public class SearchLecActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_lec);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("SharePlan");
+
+        Intent userIntent = getIntent();
+        String uid = userIntent.getStringExtra("UserUID");
 
         TextView lecName = findViewById(R.id.lec_name);
         Button search = findViewById(R.id.search);
@@ -80,7 +82,7 @@ public class SearchLecActivity extends AppCompatActivity {
                                             lecture.getTime().equals(touchLec.getTime())) {
                                         // UserLectureInfo 트리의 하위 멤버에 선택한 Lecture의 UID를 추가함
                                         ArrayList<String> lecUIDs = new ArrayList<>();
-                                        mDatabaseRef.child("UserLectureInfo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        mDatabaseRef.child("UserLectureInfo").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 // 먼저 기존 강의 UID 리스트를 가져온 뒤, 추가하고자 하는 강의의 UID를 추가하고 덮어쓴다.
