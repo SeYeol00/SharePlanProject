@@ -149,6 +149,7 @@ public class ClassListActivity extends AppCompatActivity {
                         }
                         else{
                             intent = new Intent(ClassListActivity.this, SearchLecActivity.class);
+                            intent.putExtra("UserUID", uid);
                         }
                         startActivity(intent);
                     }
