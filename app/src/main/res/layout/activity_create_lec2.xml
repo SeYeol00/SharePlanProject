@@ -1,49 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center"
-    tools:context=".CreateLec_2_Activity">
+    android:padding="30dp">
 
     <TextView
-        android:id="@+id/title"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="top"
-        android:textSize="47sp"
-        android:textColor="#3994E4"
-        android:text="수강생 학번 입력" />
+        android:layout_marginBottom="10dp"
+        android:text="수강생 목록"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/studentNumber"
-        android:layout_width="327dp"
+    <ListView
+        android:id="@+id/nums_listView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginBottom="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:lines="8"
-        android:scrollbars="vertical"
-        android:hint="수강생 학번치고 엔터 누르세요"
-        android:minHeight="48dp" />
+        android:orientation="horizontal">
 
+        <EditText
+            android:id="@+id/studentNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="수강생 학번"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
+        <Button
+            android:id="@+id/addStudent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/main"
+            android:text="확인" />
+    </LinearLayout>
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/lectureRegister"
-        android:layout_width="247dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:minHeight="32dp"
-        android:layout_marginTop="10dp"
-        android:text="강의 생성"
-        tools:ignore="TouchTargetSizeCheck" />
-
+        android:layout_gravity="bottom|center|center_horizontal"
+        android:backgroundTint="@color/main"
+        android:text="추가" />
 </LinearLayout>
