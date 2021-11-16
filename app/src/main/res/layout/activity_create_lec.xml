@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".RegisterActivity">
+    tools:context=".CreateLecActivity">
 
     <TextView
         android:id="@+id/title"
@@ -20,7 +20,7 @@
         android:text="강의 일정 채널생성" />
 
     <EditText
-        android:id="@+id/lectureName"
+        android:id="@+id/et_lec_name"
         android:layout_width="327dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -33,7 +33,7 @@
         android:minHeight="48dp" />
 
     <EditText
-        android:id="@+id/lectureProfessor"
+        android:id="@+id/et_lec_professor"
         android:layout_width="327dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -47,7 +47,7 @@
          />
 
     <EditText
-        android:id="@+id/lectureDivision"
+        android:id="@+id/et_lec_division"
         android:layout_width="327dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -77,35 +77,35 @@
         >
 
         <CheckBox
-            android:id="@+id/mon"
+            android:id="@+id/ch_mon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="월" />
 
         <CheckBox
-            android:id="@+id/tue"
+            android:id="@+id/ch_tue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="화" />
 
         <CheckBox
-            android:id="@+id/wends"
+            android:id="@+id/ch_wends"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="수" />
 
        <CheckBox
-            android:id="@+id/thurs"
+            android:id="@+id/ch_thurs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="목" />
 
         <CheckBox
-            android:id="@+id/fri"
+            android:id="@+id/ch_fri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -113,7 +113,7 @@
     </LinearLayout>
 
     <TimePicker
-        android:id="@+id/startTime"
+        android:id="@+id/tp_start"
         android:layout_width="wrap_content"
         android:layout_height="135dp"
         android:layout_gravity="center"
@@ -130,7 +130,7 @@
         android:textSize="16sp" />
 
     <TimePicker
-        android:id="@+id/endTime"
+        android:id="@+id/tp_end"
         android:layout_width="wrap_content"
         android:layout_height="138dp"
         android:layout_gravity="center"
@@ -139,7 +139,7 @@
 
 
     <Button
-        android:id="@+id/lectureRegister"
+        android:id="@+id/bt_lec_register"
         android:layout_width="247dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
