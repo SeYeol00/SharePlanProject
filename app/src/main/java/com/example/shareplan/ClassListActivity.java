@@ -43,20 +43,23 @@ public class ClassListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_list);
 
+        Intent userIntent = getIntent();
+        String strEmail = userIntent.getStringExtra("UserEmail");
+        String strPwd = userIntent.getStringExtra("UserPwd");
+        String uid = userIntent.getStringExtra("UserUID");
 
-
-        mFirebaseAuth =FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("SharePlan");
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
         ListView listView = (ListView) findViewById(R.id.courseListView);
 
         ListViewAdapter adapter = new ListViewAdapter(ClassListActivity.this);
         listView.setAdapter(adapter);
-        String uid = mUser.getUid();
+
         mDatabaseRef.child("UserLectureInfo").child(uid).addValueEventListener(new ValueEventListener() {
+            // 유저별 강의 목록을 리스트뷰에 저장
+            // 데이터베이스가 업데이트 될 때마다 실시간으로 새로고침함
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                lectureArray.clear();
+                adapter.clear();
                 for(DataSnapshot lectureUIDSet : snapshot.getChildren()) {
                     String lectureUID = lectureUIDSet.getKey();
                     mDatabaseRef.child("LectureInfo").child(lectureUID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -78,31 +81,12 @@ public class ClassListActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-
-
-
-
-
-        // 현재 로그인된 유저의 UID는 로그인시 Intent를 통해서 넘어옴.
-        // 유저별 강의 데이터베이스에서, 로그인한 유저의 UID를 통해 유저가 가지고 있는 강의 UID들을 가져옴.
-        // 강의 데이터베이스에서, 유저가 가지고있는 강의 UID를 통해 각 강의의 정보를 가져옴.
-        // 각 강의의 정보들을 다듬어서, ListView의 adapter에 추가해줌.
-        // 이 목록은, 유저의 강의 목록이 업데이트 될 때마다 계속 갱신되어야 하므로,
-        // get()이나 addListenerForSingleValueEvent가 아니라, addValueEventListener를 사용하는 것이 좋음.
-        // 데이터 읽기 및 쓰기의 자세한 방법은 아래 링크 참고
-        // https://firebase.google.com/docs/database/android/read-and-write?hl=ko#java_4
-
-        // "+" 버튼 클릭 시, 강의 추가 액티비티로 넘어가도록 onClickListener를 구현해야함.
-        // 강의 추가/생성 자체는 강의 추가/생성 액티비티에서 이루어지므로, 콜백 함수는 구현하지 않아도 됨.
-        // 다만, 유저의 UID를 통해 권한을 받아와야 함.
-        // 받아온 권한에 따라, SearchLec으로 보내야 할지, CreateLec으로 보내야 할지를 결정.
-        // 이 때에는 버튼이 클릭될 시에만 실행되어야 하므로,
-        // get()이나, addListenerForSingleValueEvent를 사용하는 것이 좋음.
         });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // 강의 목록 터치 시
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mDatabaseRef.child("LectureInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+                mDatabaseRef.child("LectureInfo").addListenerForSingleValueEvent(new ValueEventListener() { // 해당하는 강의의 uid를 불러옴
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         LectureInfo touchLec = adapter.getItem(position);
@@ -111,10 +95,32 @@ public class ClassListActivity extends AppCompatActivity {
                             LectureInfo lecture = lectureData.getValue(LectureInfo.class);
                             if(lecture.getName().equals(touchLec.getName()) && lecture.getProfessor().equals(touchLec.getProfessor()) &&
                                     lecture.getDivision().equals(touchLec.getDivision()) && lecture.getDay().equals(touchLec.getDay()) &&
-                                    lecture.getTime().equals(touchLec.getTime())) {
-                                Intent intent = new Intent(ClassListActivity.this,ScheduleActivity.class);
-                                intent.putExtra("lecUid", lecUID);
-                                startActivity(intent);
+                                    lecture.getTime().equals(touchLec.getTime())) { // 데이터베이스에서 터치한 강의와 일치하는 데이터를 탐색
+                                mDatabaseRef.child("UserInfo").addListenerForSingleValueEvent(new ValueEventListener() { // 일치한다면 현재 로그인한 유저의 권한 가져옴
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for(DataSnapshot userData : snapshot.getChildren()) {
+                                            UserInfo userInfo = userData.getValue(UserInfo.class);
+                                            if(userInfo.getEmail().equals(strEmail) && userInfo.getPassword().equals(strPwd)) {
+                                                boolean authority = userInfo.getAuthority();
+                                                Intent intent;
+                                                if(authority) { // 교수라면
+                                                    intent = new Intent(ClassListActivity.this, ScheduleActivity.class);
+                                                } else { // 일반 학생이라면
+                                                    intent = new Intent(ClassListActivity.this, Schedule2Activity.class);
+                                                }
+                                                intent.putExtra("lecUid", lecUID);
+                                                startActivity(intent);
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                         }
                     }
@@ -127,9 +133,9 @@ public class ClassListActivity extends AppCompatActivity {
             }
         });
 
-        Button btn_Next = findViewById(R.id.search);
+        Button btn_Add = findViewById(R.id.search);
 
-        btn_Next.setOnClickListener(new View.OnClickListener() {
+        btn_Add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mDatabaseRef.child("UserInfo").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -137,15 +143,14 @@ public class ClassListActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         UserInfo userInfo = snapshot.getValue(UserInfo.class);
                         boolean authority= userInfo.getAuthority();
+                        Intent intent;
                         if (authority){
-                            Intent intent = new Intent(ClassListActivity.this,CreateLecActivity.class);
-                            startActivity(intent);
+                            intent = new Intent(ClassListActivity.this, CreateLecActivity.class);
                         }
                         else{
-                            Intent intent = new Intent(ClassListActivity.this,SearchLecActivity.class);
-                            startActivity(intent);
+                            intent = new Intent(ClassListActivity.this, SearchLecActivity.class);
                         }
-
+                        startActivity(intent);
                     }
 
                     @Override
