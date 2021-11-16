@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class CreateLecActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabaseRef;
-    private EditText EtLecName, EtLecProfessor, EtLecDibision; //Lecture input
+    private EditText EtLecName, EtLecProfessor, EtLecDivision; //Lecture input
     private CheckBox ChMon, ChTue, ChWends, ChThurs, ChFri;
     private TimePicker TpStart,TpEnd; // TimePicker
     private Button BtRegister; //LecRegister button
@@ -36,7 +36,7 @@ public class CreateLecActivity extends AppCompatActivity {
 //edittext
         EtLecName = findViewById(R.id.et_lec_name);
         EtLecProfessor = findViewById(R.id.et_lec_professor);
-        EtLecDibision = findViewById(R.id.et_lec_division);
+        EtLecDivision = findViewById(R.id.et_lec_division);
 //checkbox
         ChMon = findViewById(R.id.ch_mon);
         ChTue = findViewById(R.id.ch_tue);
@@ -72,7 +72,7 @@ public class CreateLecActivity extends AppCompatActivity {
 
                 String strLecName = EtLecName.getText().toString();
                 String strLecProfessor = EtLecProfessor.getText().toString();
-                String strLecDibision = EtLecDibision.getText().toString();
+                String strLecDivision = EtLecDivision.getText().toString();
 
                 String strLecDay = "";
                 if(ChMon.isChecked() == true) strLecDay += ChMon.getText().toString();
@@ -87,8 +87,8 @@ public class CreateLecActivity extends AppCompatActivity {
 
                 intent.putExtra("Name",strLecName);
                 intent.putExtra("Professor",strLecProfessor);
-                intent.putExtra("Day",strLecDibision);
-                intent.putExtra("Division",strLecDibision);
+                intent.putExtra("Day",strLecDivision);
+                intent.putExtra("Division",strLecDivision);
                 intent.putExtra("Time",strLecTime);
 
                 startActivity(intent);
