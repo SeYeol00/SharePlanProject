@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ScheduleActivity extends AppCompatActivity {
+public class Schedule2Activity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -31,7 +31,7 @@ public class ScheduleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule);
+        setContentView(R.layout.activity_schedule2);
         Intent intent = getIntent();
         String lec_Uid = intent.getStringExtra("lecUid");
 
@@ -70,6 +70,6 @@ public class ScheduleActivity extends AppCompatActivity {
         });
 
 
-        recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);
     }
 }
