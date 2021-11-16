@@ -10,11 +10,21 @@
 
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="413dp"
+        android:layout_height="383dp"
         app:eventsEnabled="true"
         app:headerColor="@color/main"
         app:selectionColor="@color/main"
-        app:type="one_day_picker" />
+        app:type="one_day_picker">
+
+    </com.applandeo.materialcalendarview.CalendarView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendar"
+        tools:layout_editor_absoluteX="411dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
 
-        recyclerView = findViewById(R.id.calendarRecyclerview); // 아이디 연결
+        recyclerView = findViewById(R.id.recyclerview); // 아이디 연결
         recyclerView.setHasFixedSize(true); //리사이클러뷰 기존성능 강화
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
