@@ -12,6 +12,12 @@ public class TodoInfo {
         this.date = date;
         this.registerNum = registerNum;
     }
+    public TodoInfo() {
+        this.title = "";
+        this.type = "";
+        this.date = "";
+        this.registerNum = "";
+    }
 
     public String getType() {
         return type;

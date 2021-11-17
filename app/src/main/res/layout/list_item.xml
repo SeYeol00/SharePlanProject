@@ -51,7 +51,8 @@
             android:background="@drawable/delete_edit"
             app:layout_constraintBaseline_toBaselineOf="@+id/updateButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/updateButton" />
+            app:layout_constraintStart_toEndOf="@+id/updateButton"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
