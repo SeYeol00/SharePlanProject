@@ -53,6 +53,8 @@ public class AddscheduleActivity extends AppCompatActivity {
                     case R.id.test:
                         todoInfo.setType("Test");
                         break;
+                    default:
+                        todoInfo.setType("");
                 }
             }
         });
@@ -76,8 +78,8 @@ public class AddscheduleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String todoname = editText.getText().toString();
-                if(!todoname.equals("")&&!todoInfo.getType().equals("")&&!todoInfo.getDate().equals("")){
-                    todoInfo.setTitle(todoname);
+                todoInfo.setTitle(todoname);
+                if(!todoInfo.getTitle().equals("")&&!todoInfo.getType().equals("")&&!todoInfo.getDate().equals("")){
                     databaseReference.child("TodoInfo").child(lec_uid).child(todoInfo.getDate()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
