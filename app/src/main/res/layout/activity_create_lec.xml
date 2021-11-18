@@ -5,148 +5,158 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context=".CreateLecActivity">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:gravity="top"
-        android:layout_gravity="center"
-        android:text="강의 일정 채널생성"
-        android:textColor="#3994E4"
-        android:textSize="47sp" />
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/et_lec_name"
-        android:layout_width="327dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="강의 이름"
-        android:inputType="textPersonName"
-        android:minHeight="48dp" />
+        <LinearLayout
+            android:id="@+id/linearlayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/et_lec_professor"
-        android:layout_width="327dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="담당 교수"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-         />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:text="강의 일정 채널생성"
+                android:textColor="#3994E4"
+                android:textSize="47sp" />
 
-    <EditText
-        android:id="@+id/et_lec_division"
-        android:layout_width="327dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="분반"
-        android:inputType="textPersonName"
-        android:minHeight="48dp" />
+            <EditText
+                android:id="@+id/et_lec_name"
+                android:layout_width="327dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="강의 이름"
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
 
+            <EditText
+                android:id="@+id/et_lec_professor"
+                android:layout_width="327dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="담당 교수"
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
 
-    <TextView
-        android:id="@+id/LectureDay"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="top"
-        android:textSize="30dp"
-        android:textColor="#3994E4"
-        android:text="강의 요일 및 시간" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        >
-
-        <CheckBox
-            android:id="@+id/ch_mon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="월" />
-
-        <CheckBox
-            android:id="@+id/ch_tue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="화" />
-
-        <CheckBox
-            android:id="@+id/ch_wends"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="수" />
-
-       <CheckBox
-            android:id="@+id/ch_thurs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="목" />
-
-        <CheckBox
-            android:id="@+id/ch_fri"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="금" />
-    </LinearLayout>
-
-    <TimePicker
-        android:id="@+id/tp_start"
-        android:layout_width="wrap_content"
-        android:layout_height="135dp"
-        android:layout_gravity="center"
-        android:calendarViewShown="false"
-        android:timePickerMode="spinner" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="0dp"
-        android:text="~"
-        android:textSize="16sp" />
-
-    <TimePicker
-        android:id="@+id/tp_end"
-        android:layout_width="wrap_content"
-        android:layout_height="138dp"
-        android:layout_gravity="center"
-        android:calendarViewShown="false"
-        android:timePickerMode="spinner" />
+            <EditText
+                android:id="@+id/et_lec_division"
+                android:layout_width="327dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:hint="분반"
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
 
 
-    <Button
-        android:id="@+id/bt_lec_register"
-        android:layout_width="247dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:minHeight="32dp"
-        android:layout_marginTop="10dp"
-        android:text="강의 생성"
-        tools:ignore="TouchTargetSizeCheck" />
+            <TextView
+                android:id="@+id/LectureDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="top"
+                android:text="강의 요일 및 시간"
+                android:textColor="#3994E4"
+                android:textSize="30dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <CheckBox
+                    android:id="@+id/ch_mon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="월" />
+
+                <CheckBox
+                    android:id="@+id/ch_tue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="화" />
+
+                <CheckBox
+                    android:id="@+id/ch_wends"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="수" />
+
+                <CheckBox
+                    android:id="@+id/ch_thurs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="목" />
+
+                <CheckBox
+                    android:id="@+id/ch_fri"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="금" />
+            </LinearLayout>
+
+            <TimePicker
+                android:id="@+id/tp_start"
+                android:layout_width="wrap_content"
+                android:layout_height="135dp"
+                android:layout_gravity="center"
+                android:calendarViewShown="false"
+                android:timePickerMode="spinner" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:text="~"
+                android:textSize="16sp" />
+
+            <TimePicker
+                android:id="@+id/tp_end"
+                android:layout_width="wrap_content"
+                android:layout_height="138dp"
+                android:layout_gravity="center"
+                android:calendarViewShown="false"
+                android:timePickerMode="spinner" />
+
+
+            <Button
+                android:id="@+id/bt_lec_register"
+                android:layout_width="247dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:minHeight="32dp"
+                android:text="강의 생성"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

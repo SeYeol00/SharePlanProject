@@ -43,10 +43,13 @@ public class ClassListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_list);
 
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+
         Intent userIntent = getIntent();
         String strEmail = userIntent.getStringExtra("UserEmail");
         String strPwd = userIntent.getStringExtra("UserPwd");
-        String uid = userIntent.getStringExtra("UserUID");
+        String uid = user.getUid();
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("SharePlan");
         ListView listView = (ListView) findViewById(R.id.courseListView);
