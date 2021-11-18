@@ -64,7 +64,7 @@ public class CreateLecActivity extends AppCompatActivity {
             }
         });
 //button
-        BtRegister = findViewById(R.id.bt_register);
+        BtRegister = findViewById(R.id.bt_lec_register);
 
         BtRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +87,7 @@ public class CreateLecActivity extends AppCompatActivity {
 
                 intent.putExtra("Name",strLecName);
                 intent.putExtra("Professor",strLecProfessor);
-                intent.putExtra("Day",strLecDivision);
+                intent.putExtra("Day",strLecDay);
                 intent.putExtra("Division",strLecDivision);
                 intent.putExtra("Time",strLecTime);
 

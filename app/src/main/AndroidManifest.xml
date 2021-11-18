@@ -11,10 +11,10 @@
         android:theme="@style/Theme.SharePlan">
         <activity
             android:name=".CreateLec_2_Activity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".CreateLecActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ClassListActivity"
             android:exported="false" />
@@ -23,20 +23,24 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true"/>
-
-
-        <activity
-            android:name=".Schedule2Activity">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Schedule2Activity"
+            android:exported="false">
+        </activity>
         <activity
             android:name=".ScheduleActivity"
             android:exported="false" />
+        <activity
+            android:name=".SearchLecActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

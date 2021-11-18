@@ -5,19 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".CreateLecActivity">
 
     <TextView
         android:id="@+id/title"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:gravity="top"
-        android:textSize="47sp"
+        android:layout_gravity="center"
+        android:text="강의 일정 채널생성"
         android:textColor="#3994E4"
-        android:text="강의 일정 채널생성" />
+        android:textSize="47sp" />
 
     <EditText
         android:id="@+id/et_lec_name"
@@ -66,6 +65,7 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:gravity="top"
         android:textSize="30dp"
         android:textColor="#3994E4"
@@ -74,6 +74,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         >
 
         <CheckBox
