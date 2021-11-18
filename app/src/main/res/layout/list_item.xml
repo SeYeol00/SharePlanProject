@@ -26,32 +26,20 @@
             android:id="@+id/lecsubject"
             android:layout_width="140dp"
             android:layout_height="20dp"
-            android:layout_marginEnd="36dp"
             android:text="subject"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/updateButton"
+            app:layout_constraintEnd_toStartOf="@+id/deleteButton"
             app:layout_constraintStart_toEndOf="@+id/lectime"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/updateButton"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:background="@drawable/pencil_edit"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/deleteButton"
-            app:layout_constraintStart_toEndOf="@+id/lecsubject"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
             android:id="@+id/deleteButton"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:background="@drawable/delete_edit"
-            app:layout_constraintBaseline_toBaselineOf="@+id/updateButton"
+            app:layout_constraintBottom_toBottomOf="@+id/lecsubject"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/updateButton"
+            app:layout_constraintTop_toTopOf="@+id/lecsubject"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
