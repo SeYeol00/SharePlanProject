@@ -5,12 +5,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class SearchLecActivity extends AppCompatActivity {
-    DatabaseReference mDatabaseRef;
+    private DatabaseReference mDatabaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class SearchLecActivity extends AppCompatActivity {
         Intent userIntent = getIntent();
         String uid = userIntent.getStringExtra("UserUID");
 
-        TextView lecName = findViewById(R.id.lec_name);
+        EditText lecName = findViewById(R.id.lec_name);
         Button search = findViewById(R.id.search);
 
         ListView listView = (ListView) findViewById(R.id.search_listView);
@@ -226,7 +228,7 @@ public class SearchLecActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LecItemView itemView = new LecItemView(getApplicationContext());
+            LecItemView itemView = new LecItemView(convertView.getContext());
 
             LectureInfo item = items.get(position);
             itemView.setTitle(item.getName());
