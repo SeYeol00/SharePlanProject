@@ -4,9 +4,9 @@ public class TodoInfo {
     String type;
     String title;
     String date;
-    String registerNum;
+    int registerNum;
 
-    public TodoInfo(String type, String title, String date, String registerNum) {
+    public TodoInfo(String type, String title, String date, int registerNum) {
         this.title = title;
         this.type = type;
         this.date = date;
@@ -25,7 +25,7 @@ public class TodoInfo {
         return date;
     }
 
-    public String getRegisterNum() {
+    public int getRegisterNum() {
         return registerNum;
     }
 
@@ -41,7 +41,7 @@ public class TodoInfo {
         this.date = date;
     }
 
-    public void setRegisterNum(String registerNum) {
+    public void setRegisterNum(int registerNum) {
         this.registerNum = registerNum;
     }
 
