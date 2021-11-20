@@ -32,6 +32,31 @@ public class ScheduleActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private CalendarView calendarView;
     private Button button;
+    private String lec_Uid;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Calendar selectedDate = calendarView.getSelectedDate();
+        String datekey = selectedDate.getTime().getYear()+1900 + "-" + (selectedDate.getTime().getMonth()+1) + "-" + selectedDate.getTime().getDate();
+        databaseReference.child("TodoInfo").child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList.clear();
+                for(DataSnapshot Tododata : snapshot.getChildren()){
+                    TodoInfo todoInfo = Tododata.getValue(TodoInfo.class);
+                    arrayList.add(todoInfo);
+                }
+                adapter = new reAdapter(arrayList,getApplicationContext());
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +64,7 @@ public class ScheduleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_schedule);
 
         Intent intent = getIntent();
-        String lec_Uid = intent.getStringExtra("lecUid");
+        lec_Uid = intent.getStringExtra("lecUid");
 
         recyclerView = findViewById(R.id.recyclerview); // 아이디 연결
         recyclerView.setHasFixedSize(true); //리사이클러뷰 기존성능 강화
@@ -50,16 +75,14 @@ public class ScheduleActivity extends AppCompatActivity {
 
         database =  FirebaseDatabase.getInstance(); //파이어베이스 데이터베이스 연동하기
 
-        databaseReference = database.getReference("TodoInfo"); //DB테이블 연결
+        databaseReference = database.getReference("SharePlan"); //DB테이블 연결
         calendarView = findViewById(R.id.calendar);
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
             public void onDayClick(EventDay eventDay) {
-
-
                 Calendar clickedDayCalendar = eventDay.getCalendar();
                 String datekey =  clickedDayCalendar.getTime().getYear()+1900+"-"+(clickedDayCalendar.getTime().getMonth()+1)+"-"+clickedDayCalendar.getTime().getDate();
-                databaseReference.child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
+                databaseReference.child("TodoInfo").child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         arrayList.clear();
@@ -76,7 +99,6 @@ public class ScheduleActivity extends AppCompatActivity {
 
                     }
                 });
-
             }
         });
         button.setOnClickListener(new View.OnClickListener() {
