@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -32,43 +33,27 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ClassListActivity extends AppCompatActivity {
-    private FirebaseAuth mFirebaseAuth;
     private DatabaseReference mDatabaseRef;
-    private ListViewAdapter mListViewAdapter;
-    private FirebaseUser mUser;
-    private ArrayList<String> lectureArray;
+    private ListView listView;
+    private ListViewAdapter adapter;
+    private String uid;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_class_list);
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mFirebaseAuth.getCurrentUser();
-
-        Intent userIntent = getIntent();
-        String strEmail = userIntent.getStringExtra("UserEmail");
-        String strPwd = userIntent.getStringExtra("UserPwd");
-        String uid = user.getUid();
-
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("SharePlan");
-        ListView listView = (ListView) findViewById(R.id.courseListView);
-
-        ListViewAdapter adapter = new ListViewAdapter(ClassListActivity.this);
-        listView.setAdapter(adapter);
-
-        mDatabaseRef.child("UserLectureInfo").child(uid).addValueEventListener(new ValueEventListener() {
+    protected void onResume() {
+        super.onResume();
+        mDatabaseRef.child("UserLectureInfo").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             // 유저별 강의 목록을 리스트뷰에 저장
             // 데이터베이스가 업데이트 될 때마다 실시간으로 새로고침함
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 adapter.clear();
                 for(DataSnapshot lectureUIDSet : snapshot.getChildren()) {
-                    String lectureUID = lectureUIDSet.getKey();
+                    String lectureUID = lectureUIDSet.getValue(String.class);
                     mDatabaseRef.child("LectureInfo").child(lectureUID).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             adapter.addItem(snapshot.getValue(LectureInfo.class));
+                            listView.setAdapter(adapter);
                         }
 
                         @Override
@@ -85,6 +70,23 @@ public class ClassListActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_class_list);
+
+        Intent userIntent = getIntent();
+        String strEmail = userIntent.getStringExtra("UserEmail");
+        String strPwd = userIntent.getStringExtra("UserPwd");
+        uid = userIntent.getStringExtra("UserUID");
+
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("SharePlan");
+        listView = (ListView) findViewById(R.id.courseListView);
+
+        adapter = new ListViewAdapter(getApplicationContext());
+        listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // 강의 목록 터치 시
             @Override
@@ -152,8 +154,8 @@ public class ClassListActivity extends AppCompatActivity {
                         }
                         else{
                             intent = new Intent(ClassListActivity.this, SearchLecActivity.class);
-                            intent.putExtra("UserUID", uid);
                         }
+                        intent.putExtra("UserUID", uid);
                         startActivity(intent);
                     }
 
@@ -168,42 +170,16 @@ public class ClassListActivity extends AppCompatActivity {
 
     }
 
-    class LecItemView extends LinearLayout {
-        TextView title;
-        TextView info;
-
-        public LecItemView(Context context) {
-            super(context);
-            init(context);
-        }
-
-        public LecItemView(Context context, AttributeSet attrs) {
-            super(context, attrs);
-            init(context);
-        }
-
-        public void init(Context context) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(R.layout.lec_item, this, true);
-
-            title = (TextView) findViewById(R.id.lec_item_name);
-            info = (TextView) findViewById(R.id.lec_item_info);
-        }
-
-        public void setTitle(String name) {
-            title.setText(name);
-        }
-
-        public void setInfo(String desc) {
-            info.setText(desc);
-        }
-    }
     class ListViewAdapter extends BaseAdapter {
 
-        ArrayList<LectureInfo> items = new ArrayList<LectureInfo>();
+        Context mContext = null;
+        LayoutInflater mLayoutInflater = null;
+        ArrayList<LectureInfo> items = null;
 
-        public ListViewAdapter(ClassListActivity ClassListActivity) {
-
+        public ListViewAdapter(Context context) {
+            mContext = context;
+            mLayoutInflater = LayoutInflater.from(mContext);
+            items = new ArrayList<>();
         }
 
         @Override
@@ -223,13 +199,17 @@ public class ClassListActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LecItemView itemView = new LecItemView(getApplicationContext());
+            View view = mLayoutInflater.inflate(R.layout.lec_item, null);
+
+            TextView lecName = (TextView)view.findViewById(R.id.lec_item_name);
+            TextView lecInfo = (TextView)view.findViewById(R.id.lec_item_info);
 
             LectureInfo item = items.get(position);
-            itemView.setTitle(item.getName());
+            lecName.setText(item.getName());
             String desc = item.getProfessor() + " / " + item.getDivision() + " / " + item.getDay() + " / " + item.getTime();
-            itemView.setInfo(desc);
-            return itemView;
+            lecInfo.setText(desc);
+
+            return view;
         }
 
         public void addItem(LectureInfo item) {

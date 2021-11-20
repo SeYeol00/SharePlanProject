@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -49,7 +50,7 @@ public class SearchLecActivity extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.search_listView);
 
-        ListViewAdapter adapter = new ListViewAdapter(SearchLecActivity.this);
+        ListViewAdapter adapter = new ListViewAdapter(getApplicationContext());
         listView.setAdapter(adapter);
 
         // 특정 강의 클릭 시 유저별 개인 데이터베이스에 해당 강의의 UID 등록
@@ -57,8 +58,10 @@ public class SearchLecActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 안내메세지 표시
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(SearchLecActivity.this);
+                builder.setTitle("확인");
                 builder.setMessage("이 강의를 추가하시겠습니까?");
+                builder.setIcon(android.R.drawable.ic_dialog_info);
 
                 builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
                     @Override
@@ -88,11 +91,20 @@ public class SearchLecActivity extends AppCompatActivity {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 // 먼저 기존 강의 UID 리스트를 가져온 뒤, 추가하고자 하는 강의의 UID를 추가하고 덮어쓴다.
+                                                boolean isExist = false;
                                                 for(DataSnapshot lecUIDSet : snapshot.getChildren()) {
-                                                    lecUIDs.add(lecUIDSet.getValue(String.class));
+                                                    String lecUidExist = lecUIDSet.getValue(String.class);
+                                                    lecUIDs.add(lecUidExist);
+                                                    if(lecUidExist.equals(lecUID))
+                                                        isExist = true;
                                                 }
-                                                lecUIDs.add(lecUID);
-                                                mDatabaseRef.child("UserLectureInfo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(lecUIDs);
+                                                if(isExist) {
+                                                    Toast.makeText(SearchLecActivity.this, "이미 등록한 강의입니다.", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    lecUIDs.add(lecUID);
+                                                    mDatabaseRef.child("UserLectureInfo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(lecUIDs);
+                                                    finish();
+                                                }
                                             }
 
                                             @Override
@@ -112,6 +124,8 @@ public class SearchLecActivity extends AppCompatActivity {
                         });
                     }
                 });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
@@ -130,6 +144,7 @@ public class SearchLecActivity extends AppCompatActivity {
                                 adapter.addItem(lecture);
                             }
                         }
+                        listView.setAdapter(adapter);
                     }
 
                     @Override
@@ -144,10 +159,12 @@ public class SearchLecActivity extends AppCompatActivity {
         mDatabaseRef.child("LectureInfo").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                adapter.clear();
                 for(DataSnapshot lectureData : snapshot.getChildren()) {
                     LectureInfo lecture = lectureData.getValue(LectureInfo.class);
                     adapter.addItem(lecture);
                 }
+                listView.setAdapter(adapter);
             }
 
             @Override
@@ -172,43 +189,16 @@ public class SearchLecActivity extends AppCompatActivity {
 
     }
 
-    class LecItemView extends LinearLayout {
-        TextView title;
-        TextView info;
-
-        public LecItemView(Context context) {
-            super(context);
-            init(context);
-        }
-
-        public LecItemView(Context context, AttributeSet attrs) {
-            super(context, attrs);
-            init(context);
-        }
-
-        public void init(Context context) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(R.layout.lec_item, this, true);
-
-            title = (TextView) findViewById(R.id.lec_item_name);
-            info = (TextView) findViewById(R.id.lec_item_info);
-        }
-
-        public void setTitle(String name) {
-            title.setText(name);
-        }
-
-        public void setInfo(String desc) {
-            info.setText(desc);
-        }
-    }
-
     class ListViewAdapter extends BaseAdapter {
 
-        ArrayList<LectureInfo> items = new ArrayList<LectureInfo>();
+        Context mContext = null;
+        LayoutInflater mLayoutInflater = null;
+        ArrayList<LectureInfo> items = null;
 
-        public ListViewAdapter(SearchLecActivity searchLecActivity) {
-
+        public ListViewAdapter(Context context) {
+            mContext = context;
+            mLayoutInflater = LayoutInflater.from(mContext);
+            items = new ArrayList<>();
         }
 
         @Override
@@ -228,13 +218,17 @@ public class SearchLecActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LecItemView itemView = new LecItemView(convertView.getContext());
+            View view = mLayoutInflater.inflate(R.layout.lec_item, null);
+
+            TextView lecName = (TextView)view.findViewById(R.id.lec_item_name);
+            TextView lecInfo = (TextView)view.findViewById(R.id.lec_item_info);
 
             LectureInfo item = items.get(position);
-            itemView.setTitle(item.getName());
+            lecName.setText(item.getName());
             String desc = item.getProfessor() + " / " + item.getDivision() + " / " + item.getDay() + " / " + item.getTime();
-            itemView.setInfo(desc);
-            return itemView;
+            lecInfo.setText(desc);
+
+            return view;
         }
 
         public void addItem(LectureInfo item) {

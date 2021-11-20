@@ -63,6 +63,7 @@ public class CreateLec_2_Activity extends AppCompatActivity {
                             UserInfo userInfo = userData.getValue(UserInfo.class);
                             if(userInfo.getStunum().equals(stuNum)) {
                                 adapter.addItem(userInfo);
+                                listView.setAdapter(adapter);
                                 isExist = true;
                                 break;
                             }
@@ -113,6 +114,27 @@ public class CreateLec_2_Activity extends AppCompatActivity {
                         for(UserInfo num : updateNumbers) {
                             mDatabaseRef.child("ClassInfo").child(String.valueOf(lectures.size() - 1)).child(num.getStunum()).setValue(num.getName());
                         }
+
+                        String uid = getIntent().getStringExtra("UserUID");
+
+                        mDatabaseRef.child("UserLectureInfo").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                // 먼저 기존 강의 UID 리스트를 가져온 뒤, 추가하고자 하는 강의의 UID를 추가하고 덮어쓴다.
+                                ArrayList<String> lecUIDs = new ArrayList<>();
+                                for(DataSnapshot lecUIDSet : snapshot.getChildren()) {
+                                    lecUIDs.add(lecUIDSet.getValue(String.class));
+                                }
+                                lecUIDs.add(String.valueOf(lectures.size() - 1));
+                                mDatabaseRef.child("UserLectureInfo").child(uid).setValue(lecUIDs);
+                                finish();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
 
                     @Override
@@ -120,50 +142,20 @@ public class CreateLec_2_Activity extends AppCompatActivity {
 
                     }
                 });
-                Intent intent = new Intent(CreateLec_2_Activity.this,ClassListActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
     }
 
-    class StudentNumberItemView extends LinearLayout {
-        TextView name;
-        TextView number;
-
-        public StudentNumberItemView(Context context) {
-            super(context);
-            init(context);
-        }
-
-        public StudentNumberItemView(Context context, AttributeSet attrs) {
-            super(context, attrs);
-            init(context);
-        }
-
-        public void init(Context context) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(R.layout.students_item, this, true);
-
-            name = (TextView) findViewById(R.id.student_item_name);
-            number = (TextView) findViewById(R.id.student_item_number);
-        }
-
-        public void setTitle(String name) {
-            this.name.setText(name);
-        }
-
-        public void setInfo(String number) {
-            this.number.setText(number);
-        }
-    }
-
     class ListViewAdapter extends BaseAdapter {
 
-        ArrayList<UserInfo> items = new ArrayList<>();
+        Context mContext = null;
+        LayoutInflater mLayoutInflater = null;
+        ArrayList<UserInfo> items = null;
 
-        public ListViewAdapter(CreateLec_2_Activity createLec_2_activity) {
-
+        public ListViewAdapter(Context context) {
+            mContext = context;
+            mLayoutInflater = LayoutInflater.from(mContext);
+            items = new ArrayList<>();
         }
 
         @Override
@@ -183,13 +175,17 @@ public class CreateLec_2_Activity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            CreateLec_2_Activity.StudentNumberItemView itemView = new CreateLec_2_Activity.StudentNumberItemView(getApplicationContext());
+            View view = mLayoutInflater.inflate(R.layout.lec_item, null);
+
+            TextView lecName = (TextView)view.findViewById(R.id.lec_item_name);
+            TextView lecInfo = (TextView)view.findViewById(R.id.lec_item_info);
 
             UserInfo item = items.get(position);
-            itemView.setTitle(item.getName());
-            String number = item.getStunum();
-            itemView.setInfo(number);
-            return itemView;
+            lecName.setText(item.getName());
+            String desc = item.getStunum();
+            lecInfo.setText(desc);
+
+            return view;
         }
 
         public void addItem(UserInfo item) {
