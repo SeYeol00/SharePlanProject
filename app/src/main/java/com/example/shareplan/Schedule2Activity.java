@@ -32,23 +32,18 @@ public class Schedule2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule2);
-        Log.d("sc", "check1");
         Intent intent = getIntent();
         String lec_Uid = intent.getStringExtra("lecUid");
-        Log.d("sc", "check2");
 
         recyclerView = findViewById(R.id.recyclerview); // 아이디 연결
         recyclerView.setHasFixedSize(true); //리사이클러뷰 기존성능 강화
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>(); //lec 객체를 담을 어레이리스트(어댑터쪽으로 보내기)
-        Log.d("sc", "check3");
 
         database =  FirebaseDatabase.getInstance(); //파이어베이스 데이터베이스 연동하기
-        Log.d("sc", "check4");
 
         databaseReference = database.getReference("TodoInfo"); //DB테이블 연결
-        Log.d("sc", "check5");
         calendarView = findViewById(R.id.calendar);
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
@@ -74,8 +69,6 @@ public class Schedule2Activity extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
             }
         });
-        Log.d("sc", "check6");
-
 
         recyclerView.setAdapter(adapter);
     }
