@@ -34,6 +34,9 @@ import java.util.ArrayList;
 
 public class SearchLecActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseRef;
+    private String uid = "";
+    private String stuNum = "";
+    private String stuName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,21 @@ public class SearchLecActivity extends AppCompatActivity {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("SharePlan");
 
         Intent userIntent = getIntent();
-        String uid = userIntent.getStringExtra("UserUID");
+        uid = userIntent.getStringExtra("UserUID");
+
+        mDatabaseRef.child("UserInfo").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UserInfo userInfo = snapshot.getValue(UserInfo.class);
+                stuNum = userInfo.getStunum();
+                stuName = userInfo.getName();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         EditText lecName = findViewById(R.id.lec_name);
         Button search = findViewById(R.id.search);
@@ -87,23 +104,46 @@ public class SearchLecActivity extends AppCompatActivity {
                                             lecture.getTime().equals(touchLec.getTime())) {
                                         // UserLectureInfo 트리의 하위 멤버에 선택한 Lecture의 UID를 추가함
                                         ArrayList<String> lecUIDs = new ArrayList<>();
-                                        mDatabaseRef.child("UserLectureInfo").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        mDatabaseRef.child("ClassInfo").child(lecUID).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                // 먼저 기존 강의 UID 리스트를 가져온 뒤, 추가하고자 하는 강의의 UID를 추가하고 덮어쓴다.
-                                                boolean isExist = false;
-                                                for(DataSnapshot lecUIDSet : snapshot.getChildren()) {
-                                                    String lecUidExist = lecUIDSet.getValue(String.class);
-                                                    lecUIDs.add(lecUidExist);
-                                                    if(lecUidExist.equals(lecUID))
-                                                        isExist = true;
+                                                boolean registerLec = false;
+                                                for(DataSnapshot userData : snapshot.getChildren()) {
+                                                    String findNum = userData.getKey();
+                                                    String findName = userData.getValue(String.class);
+                                                    if (findNum.equals(stuNum) && findName.equals(stuName)) {
+                                                        registerLec = true;
+                                                        break;
+                                                    }
                                                 }
-                                                if(isExist) {
-                                                    Toast.makeText(SearchLecActivity.this, "이미 등록한 강의입니다.", Toast.LENGTH_SHORT).show();
+                                                if (registerLec) {
+                                                    mDatabaseRef.child("UserLectureInfo").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                            // 먼저 기존 강의 UID 리스트를 가져온 뒤, 추가하고자 하는 강의의 UID를 추가하고 덮어쓴다.
+                                                            boolean isExist = false;
+                                                            for(DataSnapshot lecUIDSet : snapshot.getChildren()) {
+                                                                String lecUidExist = lecUIDSet.getValue(String.class);
+                                                                lecUIDs.add(lecUidExist);
+                                                                if(lecUidExist.equals(lecUID))
+                                                                    isExist = true;
+                                                            }
+                                                            if(isExist) {
+                                                                Toast.makeText(SearchLecActivity.this, "이미 등록한 강의입니다.", Toast.LENGTH_SHORT).show();
+                                                            } else {
+                                                                lecUIDs.add(lecUID);
+                                                                mDatabaseRef.child("UserLectureInfo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(lecUIDs);
+                                                                finish();
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                        }
+                                                    });
                                                 } else {
-                                                    lecUIDs.add(lecUID);
-                                                    mDatabaseRef.child("UserLectureInfo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(lecUIDs);
-                                                    finish();
+                                                    Toast.makeText(SearchLecActivity.this, "수강중인 강의가 아닙니다.", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
 

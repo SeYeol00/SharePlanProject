@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -50,16 +51,22 @@ public class CreateLecActivity extends AppCompatActivity {
         TpStart.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-                String hour = String.valueOf(i);
-                String minutes = String.valueOf(i1);
+                String hour = String.format("%02d", i);
+                if (i % 12 == 0) {
+                    hour = String.format("%02d", i + 12);
+                }
+                String minutes = String.format("%02d", i1);
                 StartTime = hour +":"+ minutes;
             }
         });
         TpEnd.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-                String hour = String.valueOf(i);
-                String minutes = String.valueOf(i1);
+                String hour = String.format("%02d", i);
+                if (i % 12 == 0) {
+                    hour = String.format("%02d", i + 12);
+                }
+                String minutes = String.format("%02d", i1);
                 EndTime = hour +":"+ minutes;
             }
         });

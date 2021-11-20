@@ -1,8 +1,12 @@
 package com.example.shareplan;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +29,7 @@ import java.util.Calendar;
 
 public class ScheduleActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private reAdapter adapter;
+    private TodoAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<TodoInfo> arrayList;
     private FirebaseDatabase database;
@@ -47,7 +51,7 @@ public class ScheduleActivity extends AppCompatActivity {
                     TodoInfo todoInfo = Tododata.getValue(TodoInfo.class);
                     arrayList.add(todoInfo);
                 }
-                adapter = new reAdapter(arrayList,getApplicationContext());
+                adapter = new TodoAdapter(arrayList, getApplicationContext());
                 recyclerView.setAdapter(adapter);
             }
 
@@ -90,7 +94,7 @@ public class ScheduleActivity extends AppCompatActivity {
                             TodoInfo todoInfo = Tododata.getValue(TodoInfo.class);
                             arrayList.add(todoInfo);
                         }
-                        adapter = new reAdapter(arrayList,getApplicationContext());
+                        adapter = new TodoAdapter(arrayList, getApplicationContext());
                         recyclerView.setAdapter(adapter);
                     }
 
@@ -113,5 +117,86 @@ public class ScheduleActivity extends AppCompatActivity {
 
 
         recyclerView.setAdapter(adapter);
+    }
+
+    public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoViewHolder> {
+
+        private ArrayList<TodoInfo> arrayList;
+        private Context context;
+
+        public TodoAdapter() {
+            this.arrayList = new ArrayList<>();
+            this.context = null;
+        }
+
+        public TodoAdapter(ArrayList<TodoInfo> arrayList, Context context) {
+            this.arrayList = arrayList;
+            this.context = context;
+        }
+
+        @NonNull
+        @Override
+        public TodoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+            TodoViewHolder holder = new TodoViewHolder(view);
+
+            holder.delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Calendar selectedDate = calendarView.getSelectedDate();
+                    String datekey = selectedDate.getTime().getYear()+1900 + "-" + (selectedDate.getTime().getMonth()+1) + "-" + selectedDate.getTime().getDate();
+                    databaseReference.child("TodoInfo").child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            TodoInfo toDelete = arrayList.get(holder.pos);
+                            arrayList.clear();
+                            for(DataSnapshot Tododata : snapshot.getChildren()){
+                                TodoInfo todoInfo = Tododata.getValue(TodoInfo.class);
+                                if(toDelete.getTitle().equals(todoInfo.getTitle()) && toDelete.getDate().equals(todoInfo.getDate()) && toDelete.getType().equals(todoInfo.getType())) {
+                                    continue;
+                                }
+                                arrayList.add(todoInfo);
+                            }
+                            databaseReference.child("TodoInfo").child(lec_Uid).child(datekey).setValue(arrayList);
+                            adapter = new TodoAdapter(arrayList, getApplicationContext());
+                            recyclerView.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            });
+
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull TodoViewHolder holder, int position) {
+            holder.lectime.setText(arrayList.get(position).getDate());
+            holder.lecsubject.setText(arrayList.get(position).getTitle());
+            holder.pos = holder.getAdapterPosition();
+        }
+
+        @Override
+        public int getItemCount() {
+            return (arrayList != null ? arrayList.size() : 0);
+        }
+
+        public class TodoViewHolder extends RecyclerView.ViewHolder {
+            TextView lectime;
+            TextView lecsubject;
+            Button delete;
+            int pos;
+
+            public TodoViewHolder(@NonNull View itemView) {
+                super(itemView);
+                this.lectime = itemView.findViewById(R.id.lectime);
+                this.lecsubject = itemView.findViewById(R.id.lecsubject);
+                this.delete = itemView.findViewById(R.id.deleteButton);
+            }
+        }
     }
 }
