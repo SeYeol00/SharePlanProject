@@ -13,34 +13,34 @@
         android:textStyle="bold" />
 
     <RadioGroup
-        android:id="@+id/as_radioGroup"
+        android:id="@+id/radiogroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/as_assn_radioBtn"
+            android:id="@+id/homework"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="과제" />
 
         <RadioButton
-            android:id="@+id/as_quiz_radioBtn"
+            android:id="@+id/quiz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="퀴즈" />
 
         <RadioButton
-            android:id="@+id/as_lec_radioBtn"
+            android:id="@+id/lecture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="강의" />
 
         <RadioButton
-            android:id="@+id/as_exam_radioBtn"
+            android:id="@+id/test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -55,7 +55,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/as_scheName_editText"
+        android:id="@+id/schedule_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -69,7 +69,7 @@
         android:textStyle="bold" />
 
     <DatePicker
-        android:id="@+id/as_datePicker"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:layout_gravity="center"
@@ -82,7 +82,7 @@
         android:layout_weight="1" />
 
     <Button
-        android:id="@+id/as_add_btn"
+        android:id="@+id/add_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"

@@ -2,8 +2,6 @@ package com.example.shareplan;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ScheduleActivity extends AppCompatActivity {
+public class Schedule2Activity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -30,12 +28,10 @@ public class ScheduleActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private CalendarView calendarView;
-    private Button button;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule);
+        setContentView(R.layout.activity_schedule2);
         Intent intent = getIntent();
         String lec_Uid = intent.getStringExtra("lecUid");
 
@@ -44,7 +40,6 @@ public class ScheduleActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>(); //lec 객체를 담을 어레이리스트(어댑터쪽으로 보내기)
-        button = findViewById(R.id.btn_add);
 
         database =  FirebaseDatabase.getInstance(); //파이어베이스 데이터베이스 연동하기
 
@@ -52,20 +47,16 @@ public class ScheduleActivity extends AppCompatActivity {
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
             public void onDayClick(EventDay eventDay) {
-
-
+                arrayList.clear();
                 Calendar clickedDayCalendar = eventDay.getCalendar();
                 String datekey =  clickedDayCalendar.getTime().getYear()+1900+"-"+(clickedDayCalendar.getTime().getMonth()+1)+"-"+clickedDayCalendar.getTime().getDate();
                 databaseReference.child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        arrayList.clear();
                         for(DataSnapshot Tododata : snapshot.getChildren()){
                             TodoInfo todoInfo = Tododata.getValue(TodoInfo.class);
                             arrayList.add(todoInfo);
                         }
-                        adapter = new reAdapter(arrayList,getApplicationContext());
-                        recyclerView.setAdapter(adapter);
                     }
 
                     @Override
@@ -73,20 +64,12 @@ public class ScheduleActivity extends AppCompatActivity {
 
                     }
                 });
-
-            }
-        });
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent1 = new Intent(ScheduleActivity.this, AddscheduleActivity.class);
-                intent1.putExtra("lecUid",lec_Uid);
-                startActivity(intent1);
-
+                adapter = new reAdapter(arrayList,getApplicationContext());
+                recyclerView.setAdapter(adapter);
             }
         });
 
 
-        recyclerView.setAdapter(adapter);
+            recyclerView.setAdapter(adapter);
     }
 }

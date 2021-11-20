@@ -2,14 +2,17 @@ package com.example.shareplan;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,18 +32,19 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class SearchLecActivity extends AppCompatActivity {
-    FirebaseAuth mFirebaseAuth;
-    DatabaseReference mDatabaseRef;
+    private DatabaseReference mDatabaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_lec);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("SharePlan");
 
-        TextView lecName = findViewById(R.id.lec_name);
+        Intent userIntent = getIntent();
+        String uid = userIntent.getStringExtra("UserUID");
+
+        EditText lecName = findViewById(R.id.lec_name);
         Button search = findViewById(R.id.search);
 
         ListView listView = (ListView) findViewById(R.id.search_listView);
@@ -80,7 +84,7 @@ public class SearchLecActivity extends AppCompatActivity {
                                             lecture.getTime().equals(touchLec.getTime())) {
                                         // UserLectureInfo 트리의 하위 멤버에 선택한 Lecture의 UID를 추가함
                                         ArrayList<String> lecUIDs = new ArrayList<>();
-                                        mDatabaseRef.child("UserLectureInfo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        mDatabaseRef.child("UserLectureInfo").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 // 먼저 기존 강의 UID 리스트를 가져온 뒤, 추가하고자 하는 강의의 UID를 추가하고 덮어쓴다.
@@ -224,7 +228,7 @@ public class SearchLecActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LecItemView itemView = new LecItemView(getApplicationContext());
+            LecItemView itemView = new LecItemView(convertView.getContext());
 
             LectureInfo item = items.get(position);
             itemView.setTitle(item.getName());

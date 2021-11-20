@@ -62,7 +62,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             //success Login
                             Intent intent = new Intent(LoginActivity.this, ClassListActivity.class);
-                            intent.putExtra("Email", strEmail);
+                            intent.putExtra("UserUID", mFirebaseAuth.getCurrentUser().getUid());
+                            intent.putExtra("UserEmail", strEmail);
+                            intent.putExtra("UserPwd", strPw);
                             startActivity(intent);
                             finish();
                         } else{
