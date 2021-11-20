@@ -16,7 +16,7 @@ public class TodoInfo {
         this.title = "";
         this.type = "";
         this.date = "";
-        this.registerNum = "";
+        this.registerNum = 0;
     }
 
     public String getType() {
