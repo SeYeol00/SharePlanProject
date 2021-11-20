@@ -74,11 +74,11 @@ public class MergeScheduleActivity extends AppCompatActivity {
 
                 Calendar clickedDayCalendar = eventDay.getCalendar();
                 String datekey =  clickedDayCalendar.getTime().getYear()+1900+"-"+(clickedDayCalendar.getTime().getMonth()+1)+"-"+clickedDayCalendar.getTime().getDate();
+                todoList.clear();
                 for (String lec_Uid : lecIdList) {
                     todoRef.child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            todoList.clear();
                             for (DataSnapshot Tododata : snapshot.getChildren()) {
                                 TodoInfo todoInfo = Tododata.getValue(TodoInfo.class);
                                 todoList.add(todoInfo);
