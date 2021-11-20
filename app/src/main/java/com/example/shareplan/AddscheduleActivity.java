@@ -3,6 +3,7 @@ package com.example.shareplan;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -63,9 +64,9 @@ public class AddscheduleActivity extends AppCompatActivity {
             @Override
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
                 String year = String.valueOf(i);
-                String month = String.valueOf(i1);
+                String month = String.valueOf(i1+1);
                 String day = String.valueOf(i2);
-                todoInfo.setDate(year +"-" + month + "-" + day);
+                todoInfo.setDate(year + "-" + month + "-" + day);
 
             }
         });
