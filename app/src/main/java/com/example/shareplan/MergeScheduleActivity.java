@@ -39,7 +39,7 @@ public class MergeScheduleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule); // TODO : 일정 합친거 보여주는 액티비티 새로 만들어야 할 듯
+        setContentView(R.layout.activity_schedule2); // TODO : 일정 합친거 보여주는 액티비티 새로 만들어야 할 듯
 
         recyclerView = findViewById(R.id.recyclerview); // 아이디 연결
         recyclerView.setHasFixedSize(true); //리사이클러뷰 기존성능 강화
@@ -49,12 +49,12 @@ public class MergeScheduleActivity extends AppCompatActivity {
         lecIdList = new ArrayList<>();  // lec id 를 담을 리스트
         button = findViewById(R.id.btn_add);
 
-        todoRef =  FirebaseDatabase.getInstance().getReference("TodoInfo");
-        userLecRef = FirebaseDatabase.getInstance().getReference("UserLec");
+        todoRef =  FirebaseDatabase.getInstance().getReference("SharePlan");
+        userLecRef = FirebaseDatabase.getInstance().getReference("SharePlan");
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
-        userLecRef.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        userLecRef.child("UserLectureInfo").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot lecId : snapshot.getChildren()) {
@@ -76,7 +76,7 @@ public class MergeScheduleActivity extends AppCompatActivity {
                 String datekey =  clickedDayCalendar.getTime().getYear()+1900+"-"+(clickedDayCalendar.getTime().getMonth()+1)+"-"+clickedDayCalendar.getTime().getDate();
                 todoList.clear();
                 for (String lec_Uid : lecIdList) {
-                    todoRef.child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
+                    todoRef.child("TodoInfo").child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot Tododata : snapshot.getChildren()) {
