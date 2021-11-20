@@ -90,6 +90,7 @@ public class CreateLecActivity extends AppCompatActivity {
                 intent.putExtra("Day",strLecDay);
                 intent.putExtra("Division",strLecDivision);
                 intent.putExtra("Time",strLecTime);
+                intent.putExtra("UserUID", getIntent().getStringExtra("UserUID"));
 
                 startActivity(intent);
                 finish();
