@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -20,10 +19,6 @@ public class reAdapter extends RecyclerView.Adapter<reAdapter.reViewHolder> {
     private ArrayList<TodoInfo> arrayList;
     private Context context;
 
-    public reAdapter() {
-        this.arrayList = new ArrayList<>();
-        this.context = null;
-    }
 
     public reAdapter(ArrayList<TodoInfo> arrayList, Context context) {
         this.arrayList = arrayList;
@@ -33,16 +28,8 @@ public class reAdapter extends RecyclerView.Adapter<reAdapter.reViewHolder> {
     @NonNull
     @Override
     public reViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item2, parent, false);
         reViewHolder holder = new reViewHolder(view);
-
-        holder.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context.getApplicationContext(), "확인", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         return holder;
     }
 
@@ -50,6 +37,7 @@ public class reAdapter extends RecyclerView.Adapter<reAdapter.reViewHolder> {
     public void onBindViewHolder(@NonNull reViewHolder holder, int position) {
         holder.lectime.setText(arrayList.get(position).getDate());
         holder.lecsubject.setText(arrayList.get(position).getTitle());
+
     }
 
     @Override
@@ -60,13 +48,11 @@ public class reAdapter extends RecyclerView.Adapter<reAdapter.reViewHolder> {
     public class reViewHolder extends RecyclerView.ViewHolder {
         TextView lectime;
         TextView lecsubject;
-        Button delete;
 
         public reViewHolder(@NonNull View itemView) {
             super(itemView);
             this.lectime = itemView.findViewById(R.id.lectime);
             this.lecsubject = itemView.findViewById(R.id.lecsubject);
-            this.delete = itemView.findViewById(R.id.deleteButton);
         }
     }
 }

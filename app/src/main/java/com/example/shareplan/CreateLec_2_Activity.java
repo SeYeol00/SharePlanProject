@@ -175,15 +175,15 @@ public class CreateLec_2_Activity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = mLayoutInflater.inflate(R.layout.lec_item, null);
+            View view = mLayoutInflater.inflate(R.layout.students_item, null);
 
-            TextView lecName = (TextView)view.findViewById(R.id.lec_item_name);
-            TextView lecInfo = (TextView)view.findViewById(R.id.lec_item_info);
+            TextView stuName = (TextView)view.findViewById(R.id.student_item_name);
+            TextView stuNum = (TextView)view.findViewById(R.id.student_item_number);
 
             UserInfo item = items.get(position);
-            lecName.setText(item.getName());
+            stuName.setText(item.getName());
             String desc = item.getStunum();
-            lecInfo.setText(desc);
+            stuNum.setText(desc);
 
             return view;
         }
