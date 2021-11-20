@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,7 @@ import java.util.Calendar;
 
 public class ScheduleActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private reAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<TodoInfo> arrayList;
     private FirebaseDatabase database;
@@ -36,6 +37,7 @@ public class ScheduleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+
         Intent intent = getIntent();
         String lec_Uid = intent.getStringExtra("lecUid");
 
@@ -49,6 +51,7 @@ public class ScheduleActivity extends AppCompatActivity {
         database =  FirebaseDatabase.getInstance(); //파이어베이스 데이터베이스 연동하기
 
         databaseReference = database.getReference("TodoInfo"); //DB테이블 연결
+        calendarView = findViewById(R.id.calendar);
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
             public void onDayClick(EventDay eventDay) {

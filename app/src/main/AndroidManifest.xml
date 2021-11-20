@@ -41,7 +41,10 @@
             android:exported="false" />
         <activity
             android:name=".SearchLecActivity"
-            android:exported="true" />
+            android:exported="false" />
+        <activity
+            android:name=".AddscheduleActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
