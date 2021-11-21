@@ -45,6 +45,9 @@
         <activity
             android:name=".AddscheduleActivity"
             android:exported="false" />
+        <activity
+            android:name=".MergeScheduleActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -40,6 +40,9 @@ public class ClassListActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        LectureInfo mergeClass = new LectureInfo();
+        mergeClass.setName("모든 일정");
+
         super.onResume();
         mDatabaseRef.child("UserLectureInfo").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             // 유저별 강의 목록을 리스트뷰에 저장
@@ -47,6 +50,8 @@ public class ClassListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 adapter.clear();
+                adapter.addItem(mergeClass);
+                listView.setAdapter(adapter);
                 for(DataSnapshot lectureUIDSet : snapshot.getChildren()) {
                     String lectureUID = lectureUIDSet.getValue(String.class);
                     mDatabaseRef.child("LectureInfo").child(lectureUID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -91,6 +96,13 @@ public class ClassListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() { // 강의 목록 터치 시
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LectureInfo touchLec = adapter.getItem(position);
+                if (touchLec.getName().equals("모든 일정")) {
+                    Intent intent = new Intent(ClassListActivity.this, MergeScheduleActivity.class);
+                    startActivity(intent);
+                }
+
+
                 mDatabaseRef.child("LectureInfo").addListenerForSingleValueEvent(new ValueEventListener() { // 해당하는 강의의 uid를 불러옴
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
