@@ -57,7 +57,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="학번"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:textSize="25dp"/>
 
         <EditText
@@ -65,7 +65,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:hint="전화번호"
-            android:inputType="text"
+            android:inputType="phone"
             android:textSize="25dp" />
 
         <EditText

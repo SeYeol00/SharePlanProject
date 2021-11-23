@@ -39,7 +39,7 @@
                 android:layout_marginEnd="8dp"
                 android:ems="10"
                 android:hint="강의 이름"
-                android:inputType="textPersonName"
+                android:inputType="text"
                 android:minHeight="48dp" />
 
             <EditText
@@ -65,7 +65,7 @@
                 android:layout_marginEnd="8dp"
                 android:ems="10"
                 android:hint="분반"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:minHeight="48dp" />
 
 
