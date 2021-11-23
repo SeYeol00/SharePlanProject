@@ -8,6 +8,27 @@
     android:gravity="center_horizontal"
     tools:context=".CreateLecActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:background="@color/main"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp"
+        android:paddingTop="10dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="강의 일정 채널 생성"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -16,74 +37,62 @@
         <LinearLayout
             android:id="@+id/linearlayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="30dp">
 
             <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center"
-                android:text="강의 일정 채널생성"
-                android:textColor="#3994E4"
-                android:textSize="47sp" />
+                android:text="강의명" />
 
             <EditText
                 android:id="@+id/et_lec_name"
-                android:layout_width="327dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="10dp"
                 android:ems="10"
-                android:hint="강의 이름"
-                android:inputType="text"
-                android:minHeight="48dp" />
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="담당 교수님 성함" />
 
             <EditText
                 android:id="@+id/et_lec_professor"
-                android:layout_width="327dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="10dp"
                 android:ems="10"
-                android:hint="담당 교수"
-                android:inputType="textPersonName"
-                android:minHeight="48dp" />
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="분반" />
 
             <EditText
                 android:id="@+id/et_lec_division"
-                android:layout_width="327dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="10dp"
                 android:ems="10"
-                android:hint="분반"
-                android:inputType="number"
-                android:minHeight="48dp" />
+                android:inputType="number" />
 
 
             <TextView
-                android:id="@+id/LectureDay"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:gravity="top"
-                android:text="강의 요일 및 시간"
-                android:textColor="#3994E4"
-                android:textSize="30dp" />
+                android:text="강의 요일 및 시간" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <CheckBox
                     android:id="@+id/ch_mon"
@@ -149,11 +158,10 @@
 
             <Button
                 android:id="@+id/bt_lec_register"
-                android:layout_width="247dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:minHeight="32dp"
+                android:backgroundTint="@color/main"
                 android:text="강의 생성"
                 tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
