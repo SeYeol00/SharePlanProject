@@ -100,7 +100,8 @@
         android:id="@+id/btn_findPwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호 찾기" />
+        android:text="비밀번호 찾기"
+        android:backgroundTint="#FFDC73"/>
 
     <View
         android:id="@+id/view5"
