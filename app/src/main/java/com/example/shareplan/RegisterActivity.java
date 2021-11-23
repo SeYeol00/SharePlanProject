@@ -18,8 +18,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity
 {
@@ -31,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity
     private RadioGroup RgAcess;
     private RadioButton RbYes,RbNo;
     private int Authority = 1;
+    private Boolean boolAuthority = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +83,6 @@ public class RegisterActivity extends AppCompatActivity
                 String strNumber = EtNumber.getText().toString();
                 String strAddress = EtAddress.getText().toString();
 
-                Boolean boolAuthority;
                 if (Authority == 1){
                     boolAuthority = true;
                 }
@@ -85,48 +90,94 @@ public class RegisterActivity extends AppCompatActivity
                     boolAuthority = false;
                 }
 
-                if(strEmail.length() == 0) {
-                    Toast.makeText(RegisterActivity.this,"Email을 입력해주세요", Toast.LENGTH_SHORT).show();
-                    EtEmail.requestFocus();
+                // 가입시 유효성 검사
+                if(strEmail.equals("") || strPw.equals("") || strPw2.equals("") || strName.equals("") || strStunum.equals("") || strNumber.equals("") || strAddress.equals("") || boolAuthority == null) {
+                    Toast.makeText(RegisterActivity.this, "모든 항목을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(strPw.length() == 0 || strPw.length() < 6) {
-                    Toast.makeText(RegisterActivity.this,"PW가 너무 짧습니다.", Toast.LENGTH_SHORT).show();
-                    EtPw.requestFocus();
+                if(!Pattern.matches("\\w+@\\w+\\.\\w+(\\.\\w+)?", strEmail)) {
+                    Toast.makeText(RegisterActivity.this, "올바른 이메일을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(strPw.equals(strPw2) == false){
-                    Toast.makeText(RegisterActivity.this,"PW를 확인해주세요", Toast.LENGTH_SHORT).show();
-                    EtPw.requestFocus();
+                if(!Pattern.matches("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", strNumber)) {
+                    Toast.makeText(RegisterActivity.this, "올바른 휴대전화 번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //Firebase Auth access
-                mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPw).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                if(!Pattern.matches("^[가-힣]*$", strName)) {
+                    Toast.makeText(RegisterActivity.this, "올바른 형태의 이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!Pattern.matches("^(?=.*[a-zA-Z])(?=.*[!@#$%^~*+=-])(?=.*[0-9]).{10,20}$", strPw)) {
+                    Toast.makeText(RegisterActivity.this, "비밀번호는 알파벳, 숫자, 특수문자를 최소 한개 이상씩 포함해주어야 합니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "비밀번호는 10자 이상, 20자 이하로 작성하여야합니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!Pattern.matches("^(?=.*[0-9]).{8,8}$", strStunum)) {
+                    Toast.makeText(RegisterActivity.this, "올바른 학번을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!strPw.equals(strPw2)) {
+                    Toast.makeText(RegisterActivity.this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // 가입시 중복 검사
+                mDatabaseRef.child("UserInfo").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
-                            UserInfo register = new UserInfo();
-                            register.setId(firebaseUser.getUid());
-                            register.setEmail(firebaseUser.getEmail());
-                            register.setPassword(strPw);
-                            register.setName(strName);
-                            register.setStunum(strStunum);
-                            register.setPhoneNumber(strNumber);
-                            register.setAddress(strAddress);
-                            register.setAuthority(boolAuthority);
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        boolean isExist = false;
+                        for(DataSnapshot userData : snapshot.getChildren()) {
+                            UserInfo userInfo = userData.getValue(UserInfo.class);
+                            if(userInfo.getName().equals(strEmail)) {
+                                Toast.makeText(RegisterActivity.this, "이미 존재하는 이메일 주소입니다.", Toast.LENGTH_SHORT).show();
+                                isExist = true;
+                                break;
+                            }
+                            if(userInfo.getStunum().equals(strStunum)) {
+                                Toast.makeText(RegisterActivity.this, "이미 가입된 학번입니다.", Toast.LENGTH_SHORT).show();
+                                isExist = true;
+                                break;
+                            }
+                            if(userInfo.getPhoneNumber().equals(strNumber)) {
+                                Toast.makeText(RegisterActivity.this, "이미 가입된 번호입니다.", Toast.LENGTH_SHORT).show();
+                                isExist = true;
+                                break;
+                            }
+                        }
+                        if(!isExist) {
+                            //Firebase Auth access
+                            mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPw).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                                        UserInfo register = new UserInfo();
+                                        register.setId(firebaseUser.getUid());
+                                        register.setEmail(firebaseUser.getEmail());
+                                        register.setPassword(strPw);
+                                        register.setName(strName);
+                                        register.setStunum(strStunum);
+                                        register.setPhoneNumber(strNumber);
+                                        register.setAddress(strAddress);
+                                        register.setAuthority(boolAuthority);
 
-                            mDatabaseRef.child("UserInfo").child(firebaseUser.getUid()).setValue(register);
+                                        mDatabaseRef.child("UserInfo").child(firebaseUser.getUid()).setValue(register);
 
-                            Toast.makeText(RegisterActivity.this, "register success",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                            finish();
+                                        Toast.makeText(RegisterActivity.this, "register success",Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+                            });
                         }
                     }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
                 });
-
-
             }
         });
 
