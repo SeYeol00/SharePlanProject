@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -83,6 +84,24 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //click on register button
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        TextView gotoFindEmail = findViewById(R.id.find_email);
+        gotoFindEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, FindEmailActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        TextView gotoFindPwd = findViewById(R.id.find_pwd);
+        gotoFindPwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, FindPwdActivity.class);
                 startActivity(intent);
             }
         });
