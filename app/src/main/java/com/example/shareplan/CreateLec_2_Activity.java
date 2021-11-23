@@ -85,13 +85,13 @@ public class CreateLec_2_Activity extends AppCompatActivity {
                             UserInfo userInfo = userData.getValue(UserInfo.class);
                             if(userInfo.getStunum().contains(stuNum)) {
                                 adapter.addItem(userInfo);
-                                listView.setAdapter(adapter);
                                 isExist = true;
                             }
                         }
                         if(isExist == false) {
                             Toast.makeText(getApplicationContext(), "존재하지 않는 학생입니다.", Toast.LENGTH_SHORT).show();
                         }
+                        listView.setAdapter(adapter);
                     }
 
                     @Override
