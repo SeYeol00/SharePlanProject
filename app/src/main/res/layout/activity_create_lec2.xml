@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ignore"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="30dp">
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:id="@+id/linearlayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
@@ -22,12 +26,6 @@
                 android:text="수강생 목록"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
-            <ListView
-                android:id="@+id/nums_listView"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginBottom="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,13 +44,31 @@
                     tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
                 <Button
-                    android:id="@+id/addStudent"
+                    android:id="@+id/searchStudent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/main"
-                    android:text="확인" />
+                    android:text="검색" />
             </LinearLayout>
+
+            <ListView
+                android:id="@+id/all_listView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="20dp" />
+
+            <TextView
+                android:id="@+id/txt_register_students"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="등록된 인원" />
+
+            <ListView
+                android:id="@+id/num_listView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="20dp" />
 
             <View
                 android:layout_width="0dp"
