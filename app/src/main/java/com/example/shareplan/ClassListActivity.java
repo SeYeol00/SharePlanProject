@@ -219,6 +219,9 @@ public class ClassListActivity extends AppCompatActivity {
             LectureInfo item = items.get(position);
             lecName.setText(item.getName());
             String desc = item.getProfessor() + " / " + item.getDivision() + " / " + item.getDay() + " / " + item.getTime();
+            if (item.getName().equals("모든 일정")) {
+                desc = "";
+            }
             lecInfo.setText(desc);
 
             return view;
