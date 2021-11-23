@@ -37,6 +37,7 @@ public class ScheduleActivity extends AppCompatActivity {
     private CalendarView calendarView;
     private Button button;
     private String lec_Uid;
+    private int year, month, day;
 
     @Override
     protected void onResume() {
@@ -103,18 +104,24 @@ public class ScheduleActivity extends AppCompatActivity {
 
                     }
                 });
+
+                year = clickedDayCalendar.getTime().getYear()+1900;
+                month = clickedDayCalendar.getTime().getMonth();
+                day = clickedDayCalendar.getTime().getDate();
             }
         });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(ScheduleActivity.this, AddscheduleActivity.class);
+                intent1.putExtra("year", year);
+                intent1.putExtra("month", month);
+                intent1.putExtra("day", day);
                 intent1.putExtra("lecUid",lec_Uid);
                 startActivity(intent1);
 
             }
         });
-
 
         recyclerView.setAdapter(adapter);
     }

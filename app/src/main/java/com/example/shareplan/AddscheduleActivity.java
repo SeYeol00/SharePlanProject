@@ -59,19 +59,26 @@ public class AddscheduleActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // 선택된 날짜로 date picker 초기화
         datePicker = findViewById(R.id.date);
-        datePicker.setOnDateChangedListener(new DatePicker.OnDateChangedListener() {
+        Intent intent = getIntent();
+        int year = intent.getIntExtra("year", 0);
+        int month = intent.getIntExtra("month", 0);
+        int day = intent.getIntExtra("day", 0);
+        // date picker 건들이지 않아도 todoInfo 객체에 선택된 날짜 속성 넣어주기
+        todoInfo.setDate(String.valueOf(year) + "-" + String.valueOf(month+1) + "-" + String.valueOf(day));
+        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
                 String year = String.valueOf(i);
                 String month = String.valueOf(i1+1);
                 String day = String.valueOf(i2);
                 todoInfo.setDate(year + "-" + month + "-" + day);
-
             }
         });
+
         databaseReference = FirebaseDatabase.getInstance().getReference("SharePlan");
-        Intent intent = getIntent();
         String lec_uid = intent.getStringExtra("lecUid");
 
         button = findViewById(R.id.add_btn);
