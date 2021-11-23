@@ -1,70 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ignore"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="30dp">
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:text="수강생 추가"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
     <LinearLayout
+        android:id="@+id/linearlayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/studentNumber"
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="수강생 학번"
-            android:inputType="textPersonName"
+            android:layout_marginBottom="10dp"
+            android:text="수강생 목록"
             android:textSize="18sp"
-            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/studentNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="수강생 학번"
+                android:inputType="textPersonName"
+                android:textSize="14sp"
+                tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/searchStudent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/main"
+                android:text="검색" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/all_listView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:id="@+id/txt_register_students"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="등록된 인원" />
+
+        <ListView
+            android:id="@+id/num_listView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="20dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <Button
-            android:id="@+id/addStudent"
+            android:id="@+id/lectureRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="bottom|center|center_horizontal"
             android:backgroundTint="@color/main"
-            android:text="확인" />
+            android:text="추가" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="수강생 목록"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <ListView
-        android:id="@+id/nums_listView"
-        android:layout_width="match_parent"
-        android:layout_height="300dp" />
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <Button
-        android:id="@+id/lectureRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center|center_horizontal"
-        android:backgroundTint="@color/main"
-        android:text="추가" />
 </LinearLayout>

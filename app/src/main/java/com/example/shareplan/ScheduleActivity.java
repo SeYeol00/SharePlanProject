@@ -76,6 +76,8 @@ public class ScheduleActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>(); //lec 객체를 담을 어레이리스트(어댑터쪽으로 보내기)
+        adapter = new TodoAdapter(arrayList, getApplicationContext());
+        recyclerView.setAdapter(adapter);
         button = findViewById(R.id.btn_add);
 
         database =  FirebaseDatabase.getInstance(); //파이어베이스 데이터베이스 연동하기

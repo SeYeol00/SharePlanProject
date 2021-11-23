@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -47,29 +48,6 @@ public class CreateLecActivity extends AppCompatActivity {
 //timepicker
         TpStart = findViewById(R.id.tp_start);
         TpEnd = findViewById(R.id.tp_end);
-
-        TpStart.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-                String hour = String.format("%02d", i);
-                if (i % 12 == 0) {
-                    hour = String.format("%02d", i + 12);
-                }
-                String minutes = String.format("%02d", i1);
-                StartTime = hour +":"+ minutes;
-            }
-        });
-        TpEnd.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-                String hour = String.format("%02d", i);
-                if (i % 12 == 0) {
-                    hour = String.format("%02d", i + 12);
-                }
-                String minutes = String.format("%02d", i1);
-                EndTime = hour +":"+ minutes;
-            }
-        });
 //button
         BtRegister = findViewById(R.id.bt_lec_register);
 
@@ -87,6 +65,37 @@ public class CreateLecActivity extends AppCompatActivity {
                 if(ChWends.isChecked() == true) strLecDay += ChWends.getText().toString();
                 if(ChThurs.isChecked() == true) strLecDay += ChThurs.getText().toString();
                 if(ChFri.isChecked() == true) strLecDay += ChFri.getText().toString();
+
+                if(strLecName.equals("")) {
+                    Toast.makeText(CreateLecActivity.this, "강의 이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(strLecProfessor.equals("")) {
+                    Toast.makeText(CreateLecActivity.this, "교수님의 이름을 입력헤주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(strLecDivision.equals("")) {
+                    Toast.makeText(CreateLecActivity.this, "분반을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(strLecDay.equals("")) {
+                    Toast.makeText(CreateLecActivity.this, "강의 요일을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String stHour = String.format("%02d", TpStart.getHour());
+                if (TpStart.getHour() % 12 == 0) {
+                    stHour = String.format("%02d", TpStart.getHour() + 12);
+                }
+                String stMinutes = String.format("%02d", TpStart.getMinute());
+                String StartTime = stHour +":"+ stMinutes;
+
+                String edHour = String.format("%02d", TpEnd.getHour());
+                if (TpEnd.getHour() % 12 == 0) {
+                    edHour = String.format("%02d", TpEnd.getHour() + 12);
+                }
+                String edMinutes = String.format("%02d", TpEnd.getMinute());
+                String EndTime = edHour +":"+ edMinutes;
 
                 String strLecTime = StartTime + "~" + EndTime;
 

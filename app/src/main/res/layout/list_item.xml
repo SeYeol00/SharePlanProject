@@ -35,7 +35,7 @@
         <Button
             android:id="@+id/deleteButton"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="30dp"
             android:background="@drawable/delete_edit"
             app:layout_constraintBottom_toBottomOf="@+id/lecsubject"
             app:layout_constraintEnd_toEndOf="parent"
