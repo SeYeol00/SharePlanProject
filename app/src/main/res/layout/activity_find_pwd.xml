@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
+    android:padding="50dp"
     tools:context=".FindEmailActivity">
 
     <TextView
@@ -18,6 +19,7 @@
         android:id="@+id/et_stuNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:ems="10"
         android:hint="Student Number"
         android:inputType="number" />
@@ -37,9 +39,10 @@
         android:id="@+id/et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Name" />
+        android:hint="Name"
+        android:inputType="textPersonName" />
 
     <View
         android:id="@+id/view3"
@@ -56,9 +59,10 @@
         android:id="@+id/et_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:ems="10"
-        android:inputType="phone"
-        android:hint="Phone Number" />
+        android:hint="Phone Number"
+        android:inputType="phone" />
 
     <View
         android:id="@+id/view6"
@@ -76,8 +80,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:hint="Email" />
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
 
     <View
         android:id="@+id/view7"
@@ -86,9 +90,9 @@
 
     <TextView
         android:id="@+id/your_pwd"
-        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
         android:text="당신의 비밀번호는 : " />
 
     <View
@@ -100,8 +104,8 @@
         android:id="@+id/btn_findPwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호 찾기"
-        android:backgroundTint="#FFDC73"/>
+        android:backgroundTint="#FFDC73"
+        android:text="비밀번호 찾기" />
 
     <View
         android:id="@+id/view5"

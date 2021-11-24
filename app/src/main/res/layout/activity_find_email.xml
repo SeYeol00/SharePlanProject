@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
+    android:padding="50dp"
     tools:context=".FindEmailActivity">
 
     <TextView
@@ -18,6 +19,7 @@
         android:id="@+id/et_stuNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:ems="10"
         android:hint="Student Number"
         android:inputType="number" />
@@ -37,9 +39,10 @@
         android:id="@+id/et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Name" />
+        android:hint="Name"
+        android:inputType="textPersonName" />
 
     <View
         android:id="@+id/view3"
@@ -57,8 +60,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="phone"
-        android:hint="Phone Number" />
+        android:hint="Phone Number"
+        android:inputType="phone" />
 
     <View
         android:id="@+id/view6"
@@ -67,9 +70,9 @@
 
     <TextView
         android:id="@+id/your_email"
-        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
         android:text="당신의 이메일은 : " />
 
     <View
@@ -81,8 +84,8 @@
         android:id="@+id/btn_findEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="이메일 찾기"
-        android:backgroundTint="#FFDC73"/>
+        android:backgroundTint="#FFDC73"
+        android:text="이메일 찾기" />
 
     <View
         android:id="@+id/view5"
