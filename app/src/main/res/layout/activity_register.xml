@@ -61,12 +61,18 @@
                 android:inputType="textPassword"
                 android:textSize="18sp" />
 
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="비밀번호 확인"
+                android:textSize="12sp" />
+
             <EditText
                 android:id="@+id/r_et_pw2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:hint="비밀번호 확인"
                 android:inputType="textPassword"
                 android:textSize="18sp" />
 
@@ -97,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:textSize="18sp" />
 
             <TextView
@@ -112,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:inputType="text"
+                android:inputType="phone"
                 android:textSize="18sp" />
 
             <TextView

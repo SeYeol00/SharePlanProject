@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SharePlan">
         <activity
+            android:name=".FindPwdActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FindEmailActivity"
+            android:exported="false" />
+        <activity
             android:name=".IntroActivity"
             android:exported="false" />
         <activity
@@ -37,7 +43,7 @@
         </activity>
         <activity
             android:name=".Schedule2Activity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".ScheduleActivity"
             android:exported="false" />
