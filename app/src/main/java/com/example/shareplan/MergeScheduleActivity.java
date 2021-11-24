@@ -1,6 +1,7 @@
 package com.example.shareplan;
 
 import android.content.Intent;
+import android.media.metrics.Event;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MergeScheduleActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -50,15 +52,49 @@ public class MergeScheduleActivity extends AppCompatActivity {
         lecIdList = new ArrayList<>();  // lec id 를 담을 리스트
         todoRef =  FirebaseDatabase.getInstance().getReference("SharePlan");
         userLecRef = FirebaseDatabase.getInstance().getReference("SharePlan");
+        calendarView = findViewById(R.id.calendar);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
+
+        List<EventDay> events = new ArrayList<>();
         userLecRef.child("UserLectureInfo").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 lecIdList.clear();
                 for(DataSnapshot lecId : snapshot.getChildren()) {
-                    lecIdList.add((String) lecId.getValue());
+                    lecIdList.add((String)lecId.getValue());
+                }
+                /*
+                Calendar selectedDate = calendarView.getSelectedDate();
+                String yearMonth = selectedDate.getTime().getYear()+1900 + "-" + (selectedDate.getTime().getMonth()+1);
+
+                String regex = yearMonth + "-[\\d]{1,2}";
+                */
+                events.clear();
+                // 일정이 있는 날짜에 점 표시
+                for (String lec_Uid : lecIdList) {
+                    todoRef.child("TodoInfo").child(lec_Uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot planDate : snapshot.getChildren()) {
+                                String date = (String) planDate.getKey();
+                                String[] datel = date.split("-");
+                                Calendar cal = Calendar.getInstance();
+                                cal.set(Calendar.YEAR, Integer.parseInt(datel[0]));
+                                cal.set(Calendar.MONTH, Integer.parseInt(datel[1]) - 1);
+                                cal.set(Calendar.DATE, Integer.parseInt(datel[2]));
+                                EventDay eventDay = new EventDay(cal, R.drawable.mini_dot);
+                                events.add(eventDay);
+                            }
+                            calendarView.setEvents(events);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
 
@@ -68,11 +104,9 @@ public class MergeScheduleActivity extends AppCompatActivity {
             }
         });
 
-        calendarView = findViewById(R.id.calendar);
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
             public void onDayClick(EventDay eventDay) {
-
                 Calendar clickedDayCalendar = eventDay.getCalendar();
                 String datekey =  clickedDayCalendar.getTime().getYear()+1900+"-"+(clickedDayCalendar.getTime().getMonth()+1)+"-"+clickedDayCalendar.getTime().getDate();
                 todoList.clear();
