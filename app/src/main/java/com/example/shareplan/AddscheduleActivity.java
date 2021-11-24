@@ -68,7 +68,7 @@ public class AddscheduleActivity extends AppCompatActivity {
         int month = intent.getIntExtra("month", 0);
         int day = intent.getIntExtra("day", 0);
         // date picker 건들이지 않아도 todoInfo 객체에 선택된 날짜 속성 넣어주기
-        todoInfo.setDate(String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day));
+        todoInfo.setDate(String.valueOf(year) + "-" + String.valueOf(month+1) + "-" + String.valueOf(day));
         datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
