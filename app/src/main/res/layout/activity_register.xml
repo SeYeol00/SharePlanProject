@@ -57,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:hint="문자, 숫자, 특수문자 포함, 10-20자"
                 android:inputType="textPassword"
                 android:textSize="18sp" />
 
