@@ -106,19 +106,17 @@ public class ScheduleActivity extends AppCompatActivity {
 
                     }
                 });
-
-                year = clickedDayCalendar.getTime().getYear()+1900;
-                month = clickedDayCalendar.getTime().getMonth();
-                day = clickedDayCalendar.getTime().getDate();
             }
         });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(ScheduleActivity.this, AddscheduleActivity.class);
-                intent1.putExtra("year", year);
-                intent1.putExtra("month", month);
-                intent1.putExtra("day", day);
+                // 현재 달력에 선택된 날짜 intent에 담아 보내기
+                Calendar selectedDate = calendarView.getSelectedDate();
+                intent1.putExtra("year", selectedDate.getTime().getYear()+1900);
+                intent1.putExtra("month", selectedDate.getTime().getMonth());
+                intent1.putExtra("day", selectedDate.getTime().getDate());
                 intent1.putExtra("lecUid",lec_Uid);
                 startActivity(intent1);
 

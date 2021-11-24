@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,7 +68,7 @@ public class AddscheduleActivity extends AppCompatActivity {
         int month = intent.getIntExtra("month", 0);
         int day = intent.getIntExtra("day", 0);
         // date picker 건들이지 않아도 todoInfo 객체에 선택된 날짜 속성 넣어주기
-        todoInfo.setDate(String.valueOf(year) + "-" + String.valueOf(month+1) + "-" + String.valueOf(day));
+        todoInfo.setDate(String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day));
         datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
@@ -105,6 +106,8 @@ public class AddscheduleActivity extends AppCompatActivity {
 
                         }
                     });
+                } else {
+                    Toast.makeText(getApplicationContext(), "빈칸을 입력해 주세요", Toast.LENGTH_LONG).show();
                 }
 
             }
