@@ -150,6 +150,26 @@ public class MergeScheduleActivity extends AppCompatActivity {
                 for(DataSnapshot lecId : snapshot.getChildren()) {
                     lecIdList.add((String) lecId.getValue());
                 }
+
+                for (String lec_Uid : lecIdList) {
+                    System.out.println(lec_Uid);
+                    todoRef.child("TodoInfo").child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot Tododata : snapshot.getChildren()) {
+                                TodoInfo todoInfo = Tododata.getValue(TodoInfo.class);
+                                todoList.add(todoInfo);
+                            }
+                            adapter = new reAdapter(todoList, getApplicationContext());
+                            recyclerView.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
             }
 
             @Override
@@ -158,24 +178,6 @@ public class MergeScheduleActivity extends AppCompatActivity {
             }
         });
 
-        for (String lec_Uid : lecIdList) {
-            System.out.println(lec_Uid);
-            todoRef.child("TodoInfo").child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot Tododata : snapshot.getChildren()) {
-                        TodoInfo todoInfo = Tododata.getValue(TodoInfo.class);
-                        todoList.add(todoInfo);
-                    }
-                    adapter = new reAdapter(todoList, getApplicationContext());
-                    recyclerView.setAdapter(adapter);
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
     }
 }
