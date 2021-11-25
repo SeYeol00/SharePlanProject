@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ScheduleActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -61,6 +62,28 @@ public class ScheduleActivity extends AppCompatActivity {
 
             }
         });
+        List<EventDay> events = new ArrayList<>();
+        databaseReference.child("TodoInfo").child(lec_Uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot planDate : snapshot.getChildren()){
+                    String date = (String) planDate.getKey();
+                    String[] datel = date.split("-");
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(Calendar.YEAR, Integer.parseInt(datel[0]));
+                    cal.set(Calendar.MONTH, Integer.parseInt(datel[1]) - 1);
+                    cal.set(Calendar.DATE, Integer.parseInt(datel[2]));
+                    EventDay eventDay = new EventDay(cal, R.drawable.mini_dot);
+                    events.add(eventDay);
+                }
+                calendarView.setEvents(events);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -79,10 +102,35 @@ public class ScheduleActivity extends AppCompatActivity {
         adapter = new TodoAdapter(arrayList, getApplicationContext());
         recyclerView.setAdapter(adapter);
         button = findViewById(R.id.btn_add);
-
         database =  FirebaseDatabase.getInstance(); //파이어베이스 데이터베이스 연동하기
+        databaseReference =  FirebaseDatabase.getInstance().getReference("SharePlan");
+        //
+        List<EventDay> events = new ArrayList<>();
+        databaseReference.child("TodoInfo").child(lec_Uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot planDate : snapshot.getChildren()){
+                    String date = (String) planDate.getKey();
+                    String[] datel = date.split("-");
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(Calendar.YEAR, Integer.parseInt(datel[0]));
+                    cal.set(Calendar.MONTH, Integer.parseInt(datel[1]) - 1);
+                    cal.set(Calendar.DATE, Integer.parseInt(datel[2]));
+                    EventDay eventDay = new EventDay(cal, R.drawable.mini_dot);
+                    events.add(eventDay);
+                }
+                calendarView.setEvents(events);
+            }
 
-        databaseReference = database.getReference("SharePlan"); //DB테이블 연결
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        //
+
+
+
         calendarView = findViewById(R.id.calendar);
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
