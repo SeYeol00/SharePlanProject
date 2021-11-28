@@ -34,6 +34,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="이메일"
                 android:textSize="12sp" />
 
@@ -50,15 +51,16 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="비밀번호"
                 android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/r_et_pw"
-                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:background="@drawable/edit_box"
                 android:hint="문자, 숫자, 특수문자 포함, 10-20자"
                 android:inputType="textPassword"
                 android:textSize="18sp" />
@@ -67,15 +69,16 @@
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="비밀번호 확인"
                 android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/r_et_pw2"
-                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_box"
                 android:inputType="textPassword"
                 android:textSize="18sp" />
 
@@ -83,15 +86,16 @@
                 android:id="@+id/textView5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="이름"
                 android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/et_name"
-                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_box"
                 android:inputType="textPersonName"
                 android:textSize="18sp" />
 
@@ -99,15 +103,16 @@
                 android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="학번"
                 android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/et_stunum"
-                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_box"
                 android:inputType="number"
                 android:textSize="18sp" />
 
@@ -115,15 +120,16 @@
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="전화번호"
                 android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/et_phonenumber"
-                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_box"
                 android:inputType="phone"
                 android:textSize="18sp" />
 
@@ -131,15 +137,16 @@
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="주소"
                 android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/et_address"
-                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_box"
                 android:inputType="text"
                 android:textSize="18sp" />
 
