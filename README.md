@@ -4,26 +4,31 @@
 ## 팀원 소개
 ```
 박세열
+Role : 
 STUDENT NUMBER : 
 ```
 
 ```
 강경민
+Role : 
 STUDENT NUMBER : 
 ```
 
 ```
 황재일
+Role : LectureInfo를 다루는 액티비티 구현, 전체적인 코드 디버깅, 기능 개선 및 강화, 다른 팀원 도움
 STUDENT NUMBER : 20203169
 ```
 
 ```
 최은솔
+Role : 
 STUDENT NUMBER : 
 ```
 
 ```
 전성재
+Role : 
 STUDENT NUMBER : 
 ```
 
@@ -134,10 +139,70 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 
 ### 박세열
 
+<hr>
+
 ### 강경민
 
+<hr>
+
 ### 황재일
+### FindEmailActivity.java
+![image](https://user-images.githubusercontent.com/66048830/143770929-621dcf06-09ba-4aec-babc-1fd4ea3efefe.png)
+* 학번, 이름, 전화번호를 입력하고 "이메일 찾기" 버튼 터치 시, 회원가입시 사용한 이메일 주소를 확인할 수 있음.
+  * Firebase의 UserInfo 데이터베이스를 참조하여 입력한 정보의 유저가 존재하는지 확인함.
+  * 데이터베이스 참조를 위해 DatabaseReference의 addListenerForSingleValueEvent를 이용함.
+  * 존재하는 유저일 경우 이메일 주소를 표시해줌.
+  * 존재하지 않는 유저일 경우 잘못된 정보임을 Toast를 통해 표시해줌.
+* 하단의 "로그인 화면으로 돌아가기" TextView 터치 시 LoginActivity로 돌아감.
+
+### FindPwdActivity.java
+![image](https://user-images.githubusercontent.com/66048830/143770972-59c0594e-3076-46df-b126-76d213117959.png)
+* 학번, 이름, 전화번호, 이메일 주소를 입력하고 "비밀번호 찾기" 버튼 터치 시, 회원가입시 등록한 비밀번호를 확인할 수 있음.
+  * Firebase의 UserInfo 데이터베이스를 참조하여 입력한 정보의 유저가 존재하는지 확인함.
+  * 데이터베이스 참조를 위해 DatabaseReference의 addListenerForSingleValueEvent를 이용함.
+  * 존재하는 유저일 경우 비밀번호를 표시해줌.
+  * 존재하지 않는 유저일 경우 잘못된 정보임을 Toast를 통해 표시해줌.
+* 비밀번호는 앞에서부터 8글자까지는 그냥 보여주고, 나머지 부분은 '\*'로 표시함.
+  * __예시) PassWord***__
+* 하단의 "로그인 화면으로 돌아가기" TextView 터치 시 LoginActivity로 돌아감.
+
+### CreateLec_2_Activity.java
+![image](https://user-images.githubusercontent.com/66048830/143771099-ef4c4d74-0e61-4851-a451-47c1ad613a94.png)
+* 강의를 수강하는 학생들을 설정할 수 있음.
+  * 가장 하단의 "추가" 버튼 터치 시 ClassInfo 데이터베이스에 해당 정보 등록
+  * 여기서 등록된 학생들만 SearchLectureActivity를 통해 개인 리스트에 강의를 등록할 수 있음.
+* 상단의 리스트뷰에서 등록하고자 하는 학생을 터치하여 강의에 등록할 수 있음.
+  * ListView의 setOnItemClickListener를 이용하여 학생 정보 터치 시 하단의 리스트뷰에 등록한 학생의 정보를 표시해 줄 수 있음.
+* 하단의 리스트뷰에는 현재 등록되어있는 학생들을 확인할 수 있음.
+* "추가" 버튼 터치 시 LectureInfo 데이터베이스에 강의에 대한 정보를 등록함.
+  * 강의의 UID를 항상 0 ~ N-1로 유지하기 위하여, ArrayList에 현재 LectureInfo에 등록되어 있는 강의 정보들을 모두 가져온 후, 신규 등록한 강의를 덧붙여서 Firebase에 재등록함.
+  * 강의에 대한 정보는 CreateLecActivity에서 Intent를 통해 넘겨받음.
+* LectureInfo와 ClassInfo에 등록을 완료한 후, finish()를 통해 ClassListActivity로 되돌아감.
+
+### SearchLecActivity.java
+![image](https://user-images.githubusercontent.com/66048830/143771573-9a276392-00c9-4d58-9b19-a765fb4a4dea.png)
+* 화면의 ListView에 LectureInfo 데이터베이스에 등록되어있는 정보들을 가공하여 표시해줌.
+  * 데이터베이스 참조를 위해 DatabaseReference의 addListenerForSingleValueEvent를 이용함.
+  * onCreate() 실행 시, LectureInfo에 등록되어있는 모든 강의 데이터들을 가져와 ListView에 표시함.
+* 상단 EditText에 찾고자 하는 강의의 이름을 입력한 후, "검색" 버튼을 터치 시 강의들을 검색하여 보여줌.
+  * 데이터베이스 참조를 위해 DatabaseReference의 addListenerForSingleValueEvent를 이용함.
+  * 입력한 문자열을 "포함"하는 모든 강의들을 가져와 ListView에 표시함.
+  * 예시) "프로그래밍" 검색 시, "모바일프로그래밍", "C++프로그래밍", "객체지향프로그래밍" 등이 검색될 수 있음.
+* ListView의 강의 item 터치 시 개인 리스트에 강의를 등록함.
+  * ClassInfo를 조회하여, 현재 강의를 등록하고자 하는 유저가 이 강의의 ClassInfo에 등록된 학생인지 검사함(이 강의를 수강하는 학생인지).
+  * ClassInfo에 등록되어 있지 않다면, Toast를 통해 강의를 수강하는 학생만 등록 가능함을 알려줌.
+  * ClassInfo에 등록되어 있다면, UserLectureInfo를 조회하여 유저 개인 리스트에 이미 등록되어있는 강의인지를 검사함.
+  * 이미 등록된 강의라면, Toast를 통해 이미 등록된 강의임을 알려줌.
+  * 아니라면 유저 개인 리스트에 강의를 추가함.
+  * 추가된 강의는 UserLectureInfo 데이터베이스를 갱신하여 저장함.
+  * 유저별 강의 목차의 Index를 항상 0 ~ N-1로 유지하기 위하여 ArrayList에 현재 UserLectureInfo에 등록되어 있는 강의 정보들을 모두 가져온 후, 신규 등록한 강의를 덧붙여서 Firebase에 재등록함.
+
+<hr>
 
 ### 최은솔
 
+<hr>
+
 ### 전성재
+
+<hr>
