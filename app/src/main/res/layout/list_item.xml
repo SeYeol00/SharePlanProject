@@ -3,45 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="60dp"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="386dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="75">
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="340dp"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/lectime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
-            android:layout_marginEnd="10dp"
-            android:text="time"
-            app:layout_constraintBaseline_toBaselineOf="@+id/lecsubject"
-            app:layout_constraintEnd_toStartOf="@+id/lecsubject"
-            app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/lectime"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:textSize="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="time"/>
 
-        <TextView
-            android:id="@+id/lecsubject"
-            android:layout_width="140dp"
-            android:layout_height="20dp"
-            android:text="subject"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/deleteButton"
-            app:layout_constraintStart_toEndOf="@+id/lectime"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/lecsubject"
+                android:layout_marginStart="10dp"
+                android:textSize="17dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="subject"/>
 
-        <Button
+
+        </LinearLayout>
+        <android.widget.Button
             android:id="@+id/deleteButton"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/delete_edit"
             app:layout_constraintBottom_toBottomOf="@+id/lecsubject"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/lecsubject"
             tools:ignore="SpeakableTextPresentCheck" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </LinearLayout>
