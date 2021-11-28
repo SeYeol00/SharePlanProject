@@ -98,31 +98,6 @@ public class Schedule2Activity extends AppCompatActivity {
         database =  FirebaseDatabase.getInstance(); //파이어베이스 데이터베이스 연동하기
         databaseReference =  FirebaseDatabase.getInstance().getReference("SharePlan");//DB테이블 연결
 
-        //
-        List<EventDay> events = new ArrayList<>();
-        databaseReference.child("TodoInfo").child(lec_Uid).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot planDate : snapshot.getChildren()){
-                    String date = (String) planDate.getKey();
-                    String[] datel = date.split("-");
-                    Calendar cal = Calendar.getInstance();
-                    cal.set(Calendar.YEAR, Integer.parseInt(datel[0]));
-                    cal.set(Calendar.MONTH, Integer.parseInt(datel[1]) - 1);
-                    cal.set(Calendar.DATE, Integer.parseInt(datel[2]));
-                    EventDay eventDay = new EventDay(cal, R.drawable.mini_dot);
-                    events.add(eventDay);
-                }
-                calendarView.setEvents(events);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        //
-
         calendarView = findViewById(R.id.calendar);
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
