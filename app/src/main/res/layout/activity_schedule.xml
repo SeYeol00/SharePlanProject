@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ScheduleActivity">
 
-    <com.applandeo.materialcalendarview.CalendarView
-        android:id="@+id/calendar"
-        android:layout_width="413dp"
-        android:layout_height="383dp"
-        app:eventsEnabled="true"
-        app:headerColor="@color/main"
-        app:selectionColor="@color/main"
-        app:type="one_day_picker">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    </com.applandeo.materialcalendarview.CalendarView>
+        <com.applandeo.materialcalendarview.CalendarView
+            android:id="@+id/calendar"
+            android:layout_width="413dp"
+            android:layout_height="383dp"
+            app:eventsEnabled="true"
+            app:headerColor="@color/main"
+            app:selectionColor="@color/main"
+            app:type="one_day_picker">
 
-    <Button
+        </com.applandeo.materialcalendarview.CalendarView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/main"
-        android:layout_gravity="center"
-        android:text="일정 추가" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="411dp" >
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-</LinearLayout>
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add_black_24dp"
+        app:backgroundTint="@color/main"
+        app:elevation="6dp"
+        app:fabSize="normal">
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

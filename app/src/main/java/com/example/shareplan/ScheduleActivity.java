@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +37,7 @@ public class ScheduleActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     private CalendarView calendarView;
-    private Button button;
+    private FloatingActionButton button;
     private String lec_Uid;
     private int year, month, day;
 
@@ -101,7 +102,7 @@ public class ScheduleActivity extends AppCompatActivity {
         arrayList = new ArrayList<>(); //lec 객체를 담을 어레이리스트(어댑터쪽으로 보내기)
         adapter = new TodoAdapter(arrayList, getApplicationContext());
         recyclerView.setAdapter(adapter);
-        button = findViewById(R.id.btn_add);
+        button = (FloatingActionButton) findViewById(R.id.btn_add);
         database =  FirebaseDatabase.getInstance(); //파이어베이스 데이터베이스 연동하기
         databaseReference =  FirebaseDatabase.getInstance().getReference("SharePlan");
 

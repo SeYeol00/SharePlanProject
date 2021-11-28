@@ -45,10 +45,12 @@
                 android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="강의명" />
 
             <EditText
                 android:id="@+id/et_lec_name"
+                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -59,10 +61,12 @@
                 android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="담당 교수님 성함" />
 
             <EditText
                 android:id="@+id/et_lec_professor"
+                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -73,10 +77,12 @@
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="분반" />
 
             <EditText
                 android:id="@+id/et_lec_division"
+                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
