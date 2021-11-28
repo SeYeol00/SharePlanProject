@@ -9,7 +9,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="386dp"
         android:layout_height="match_parent"
-        android:layout_weight="75">
+        android:layout_weight="75"
+        android:background="@drawable/rounded_corner">
 
         <TextView
             android:id="@+id/lectime"
