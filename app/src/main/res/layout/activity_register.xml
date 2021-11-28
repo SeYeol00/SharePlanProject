@@ -42,7 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:inputType="textEmailAddress"
+                android:background="@drawable/edit_box"
+                android:inputType="textPersonName"
                 android:textSize="18sp" />
 
             <TextView
@@ -54,6 +55,7 @@
 
             <EditText
                 android:id="@+id/r_et_pw"
+                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -70,6 +72,7 @@
 
             <EditText
                 android:id="@+id/r_et_pw2"
+                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -85,6 +88,7 @@
 
             <EditText
                 android:id="@+id/et_name"
+                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -100,6 +104,7 @@
 
             <EditText
                 android:id="@+id/et_stunum"
+                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -115,6 +120,7 @@
 
             <EditText
                 android:id="@+id/et_phonenumber"
+                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -130,6 +136,7 @@
 
             <EditText
                 android:id="@+id/et_address"
+                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"

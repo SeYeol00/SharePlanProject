@@ -49,6 +49,7 @@
 
             <EditText
                 android:id="@+id/et_lec_name"
+                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -63,6 +64,7 @@
 
             <EditText
                 android:id="@+id/et_lec_professor"
+                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -77,6 +79,7 @@
 
             <EditText
                 android:id="@+id/et_lec_division"
+                android:background="@drawable/edit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
