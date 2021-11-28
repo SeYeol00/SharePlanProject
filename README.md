@@ -7,7 +7,7 @@
 
 ## 1. 개발 환경
 
-운영체제 : Windows
+운영체제 : Windows\
 개발 도구 : Android Studio 2020.3.1
 AVD SDK : Pixel 2 API 30 (Android 11.0)
 
