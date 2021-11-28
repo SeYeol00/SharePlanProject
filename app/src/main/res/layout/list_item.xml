@@ -10,30 +10,33 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="340dp"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_corner"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/lectime"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:textSize="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="time"/>
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="time"
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/lecsubject"
-                android:layout_marginStart="10dp"
-                android:textSize="17dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="subject"/>
+                android:layout_marginStart="10dp"
+                android:text="subject"
+                android:textSize="17dp" />
 
 
         </LinearLayout>
+
         <android.widget.Button
             android:id="@+id/deleteButton"
             android:layout_width="match_parent"
