@@ -139,7 +139,8 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 
 ### 박세열
 ### ClassListActivity.java
-![image](https://user-images.githubusercontent.com/79959576/143796835-52bd9fdc-1eaa-45b5-9c71-1bf361c51e87.png)
+![image](https://user-images.githubusercontent.com/79959576/143799773-45a04dcd-2d3c-4d13-8030-7da773d64c83.png)
+
 * 학생이나 교수가 로그인을 하고 들어가면 보이는 강의 리스트
 * 화면의 ListView에 UserLectureInfo 데이터베이스에 등록되어있는 정보들을 가공하여 표시해줌.
   * 데이터베이스 참조를 위해 DatabaseReference의 addListenerForSingleValueEvent를 이용함.
@@ -149,7 +150,8 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 * 상단의 플러스 버튼을 통해 사용자의 Authority에 따라 CreateLec_1_Activity(교수), SearchLecActivity(학생)으로 넘어가게됨  
 <hr>
 ### CreateLec_1_Activity.java
-![image](https://user-images.githubusercontent.com/79959576/143799292-1ab9c32c-25ff-41eb-bffe-f642cf4574a6.png)
+![image](https://user-images.githubusercontent.com/79959576/143799727-5613a58c-7936-49ad-8a8a-8863084ff6cf.png)
+
 * 교수가 강의를 생성하기 위해 
 
 ### 강경민
