@@ -148,7 +148,6 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 * 자신이 만들거나 수강하는 강의들이 리스트 형식으로 채널 구성
 * ListView의 setOnItemClickListener를 이용하여 등록된 강의 채널을 터치하면 강의에 대한 ScheduleActivity로 넘어가게 됨
 * 상단의 플러스 버튼을 통해 사용자의 Authority에 따라 CreateLec_1_Activity(교수), SearchLecActivity(학생)으로 넘어가게됨  
-<hr>
 
 
 ### CreateLec_1_Activity.java
