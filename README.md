@@ -139,7 +139,7 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 
 ### 박세열
 ### ClassListActivity.java 
-![image](https://user-images.githubusercontent.com/79959576/143800521-c2cbb965-11f0-4034-aa79-cff46c35d004.png)
+![image](https://user-images.githubusercontent.com/79959576/143800572-51e7ae21-1975-4a68-8040-5ff202ffc397.png)
 
 * 학생이나 교수가 로그인을 하고 들어가면 보이는 강의 리스트
 * 화면의 ListView에 UserLectureInfo 데이터베이스에 등록되어있는 정보들을 가공하여 표시해줌.
