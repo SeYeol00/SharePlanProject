@@ -220,7 +220,7 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 <hr>
 
 ### 최은솔
-### AddScheduleActivity.java
+### AddScheduleActivity
 ![image](https://user-images.githubusercontent.com/28581506/143822455-f0d7944e-77ba-482e-ac35-963f89a9694a.png)
 - 일정 정보를 입력 후, 추가 버튼을 누르면 TodoInfo 데이터베이스에 일정 정보 저장
     - 일정 정보를 빈칸 없이 입력했을 경우
@@ -228,30 +228,29 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
         - 데이터베이스의 TodoInfo – lecUid – date 에 접근하여 todoInfo 객체 데이터 추가
     - 빈 내용이 있을 경우 토스트 메시지를 이용해 빈칸을 채워달라는 메시지를 띄운다
 - datePicker
-    - scheduleActivity에서 인텐트로 받아온, 달력에서 선택된 날짜로 초기화시키고
+    - scheduleActivity에서 인텐트로 받아온 날짜 데이터(달력에서 선택된 날짜)로 datePicker를 초기화시키고
     - onDateChangedListener()를 이용해 datePicker에 리스너를 등록하여 datePicker의 데이터가 변경되었을 경우, 변경된 날짜로 todoInfo의 date 변수를 새로 set해준다
 - 일정 정보를 DB에 저장한 후에는 액티비티 finish() 하여 scheduleActivity로 돌아간다
 
-### MergeScheduleActivity.java
+### MergeScheduleActivity
 ![image](https://user-images.githubusercontent.com/28581506/143822721-53f776e0-026f-4120-af2e-1c91494d6820.png)
 - 강의 채널 리스트에서 맨 위에 있는 모든 일정 채널을 클릭하면, 내가 속한 모든 채널의 일정을 모아 띄워주는 달력 보기 가능
 - onCreate()
     - addListenerForSingleValueEvent 를 이용하여 UserLectureInfo 데이터베이스의 데이터를 읽어, 사용자가 속해있는 강의 채널 id 리스트인 lecIdList를 생성한다.
-    - 리스트가 다 만들어 지면, lecIdList의 원소를 이용해 TodoInfo 데이터베이스의 데이터를 읽어,        
+    - 리스트가 다 만들어 지면, lecIdList의 원소에 하나씩 접근하며,  addListenerForSingleValueEvent 를 이용하여 데이터베이스의 TodoInfo-lecUid 에 접근
         ![image](https://user-images.githubusercontent.com/28581506/143822852-f4b9728a-5e35-4079-8637-4c2190dcccd9.png)
         - TodoInfo - lecId 의 children 들의 key (일정 날짜)를 이용해
         - 일정이 있는 날짜의 calendar 객체를 만들고
-        - 이 객체와 dot 이미지를 이용하여 Eventday객체 리스트를 만들어
+        - calendar 객체와 dot 이미지를 이용하여 Eventday객체 리스트를 만들어
         - calendarView의 setEvents 를 이용하여 일정이 있는 날짜에 dot 이 찍히도록 하였다.
     - 그리고 calendarView에서 날짜가 클릭 됐을 때를 처리하기 위해, setOnDayClickListener 를 이용해 calendarView에 이벤트 리스터를 등록하고, onDayClick 메소드를 Override 한다.
-        - TodoInfo 데이터베이스에 접근해 선택된 날짜에 내가 속한 강의들의 일정 객체인 todoInfo 객체를 모아 todoList를 구성한다
-        - todoList를 이용해 reAdapter객체 생성 – adapter
-        recyclerView (달력 아래 일정 리스트를 보여주는) 에 setAdapter를 이용해 adapter를 지정해주어 달력아래 recyclerView에 일정 리스트가 띄워지도록 합니다.
+        - addListenerForSingleValueEvent 를 이용하여 TodoInfo 데이터베이스에 접근해 선택된 날짜에 내가 속한 강의들의 모든 일정을 모아 todoList 를 구성한다.
+        - todoList를 이용해 reAdapter객체인 adapter를 생성하고,
+        recyclerView (달력 아래 일정 리스트를 보여주는) 에 setAdapter를 이용해 adapter를 지정해주어, 달력아래 recyclerView에 일정 리스트가 띄워지도록 합니다.
 - onResume()
-    - 모든 일정 채널에 처음 들어왔을 때, 선택돼 있는 날짜 (=오늘 날짜)에 내가 속한 강의들의 모든 일정을 가져와 todoList를 구성하고
+    - '모든 일정' 채널에 처음 들어왔을 때, 선택돼 있는 날짜 (=오늘 날짜)에 내가 속한 강의들의 모든 일정을 가져와 todoList를 구성하고
     - todoList를 이용해 reAdapter객체 생성 – adapter
-    recyclerView (달력 아래 일정 리스트를 보여주는) 에 setAdapter를 이용해 adapter를 지정해주어 달력아래 recyclerView에 일정 리스트가 띄워지도록 합니다.
-
+    recyclerView에 setAdapter를 이용해 adapter를 지정해주어 달력아래 recyclerView에 일정 리스트가 띄워지도록 합니다.
 <hr>
 
 ### 전성재
