@@ -16,7 +16,7 @@ STUDENT NUMBER :
 
 ```
 황재일
-Role : LectureInfo, CreateLec1,2, ClassList, ListItem, ListViewAdapter 액티비티 구현, 전체적인 코드 디버깅, 기능 개선 및 강화, 다른 팀원 도움
+Role : LectureInfo 관련 액티비티 구현, 전체적인 코드 디버깅, 기능 개선 및 강화, 다른 팀원 도움
 STUDENT NUMBER : 20203169
 ```
 
