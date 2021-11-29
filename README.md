@@ -280,7 +280,7 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 * 화면의 RecyclerView에 TodoInfo 데이터베이스에 등록되어 있는 정보들을 가공하여 표시한다.
   * DatabaseReference의 addListenerForSingleValueEvent를 사용하여 데이터베이스를 참조한다.
 * 교수가 해당 날짜에 등록한 일정(강의, 퀴즈, 시험, 과제)을 리사이클러 형식으로 구성
-* 오른쪽 하단의 "+" 버튼을 통해 사용자의 Authority에 따라 AddScheduleActivity으로 넘어가게됨
+* 오른쪽 하단의 "+" 버튼을 통해 사용자의 Authority에 따라 AddScheduleActivity으로 넘어가게 된다.
 * reAdapter에 있는 정보를 ViewHolder를 통해 list_item.xml과 연결하여 배치한다. 이후 RecyclerView에 연결하고 ViewHolder를 통해 화면에 노출한다.
 * list_item.xml의 휴지통 모양을 클릭하면 일정이 삭제된다.
 
