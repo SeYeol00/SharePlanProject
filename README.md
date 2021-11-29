@@ -22,8 +22,8 @@ STUDENT NUMBER : 20203169
 
 ```
 최은솔
-Role : 
-STUDENT NUMBER : 
+Role : TodoInfo 관련 액티비티 구현, 전체적인 UI 다듬기, 테스트&코드수정
+STUDENT NUMBER : 20171712
 ```
 
 ```
