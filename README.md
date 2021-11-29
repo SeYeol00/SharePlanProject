@@ -10,8 +10,8 @@ STUDENT NUMBER : 20172894
 
 ```
 강경민
-Role : Login Activity, Register Activity, Intro Activity, 다른팀원들의 부가기능 구현, UI/UX 디자인
-STUDENT NUMBER : 20151352
+Role : 
+STUDENT NUMBER : 
 ```
 
 ```
@@ -256,5 +256,8 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 <hr>
 
 ### 전성재
+### ScheduleActivity
+![123123](https://user-images.githubusercontent.com/84118644/143836439-3304b908-d783-4153-9ce3-df5d32e99abb.JPG)
+
 
 <hr>
