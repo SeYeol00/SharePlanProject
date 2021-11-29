@@ -138,7 +138,7 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 ## 4. 기능 구현
 
 ### 박세열
-### ClassListActivity.java
+### ClassListActivity.java 
 ![image](https://user-images.githubusercontent.com/79959576/143799773-45a04dcd-2d3c-4d13-8030-7da773d64c83.png)
 
 * 학생이나 교수가 로그인을 하고 들어가면 보이는 강의 리스트
