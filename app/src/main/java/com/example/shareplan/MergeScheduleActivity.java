@@ -48,7 +48,7 @@ public class MergeScheduleActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         button = findViewById(R.id.btn_add);
-        todoList = new ArrayList<>(); // 투두 객체를 담을 리스트
+        todoList = new ArrayList<>(); // todoInfo 객체를 담을 리스트
         lecIdList = new ArrayList<>();  // lec id 를 담을 리스트
         todoRef =  FirebaseDatabase.getInstance().getReference("SharePlan");
         userLecRef = FirebaseDatabase.getInstance().getReference("SharePlan");
@@ -58,6 +58,7 @@ public class MergeScheduleActivity extends AppCompatActivity {
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
 
         List<EventDay> events = new ArrayList<>();
+        // 현재 유저가 참여하고 있는 모든 강의 채널 id를 모아 리스트로 만들기 -- lecIdList
         userLecRef.child("UserLectureInfo").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -65,12 +66,8 @@ public class MergeScheduleActivity extends AppCompatActivity {
                 for(DataSnapshot lecId : snapshot.getChildren()) {
                     lecIdList.add((String)lecId.getValue());
                 }
-                /*
-                Calendar selectedDate = calendarView.getSelectedDate();
-                String yearMonth = selectedDate.getTime().getYear()+1900 + "-" + (selectedDate.getTime().getMonth()+1);
-
-                String regex = yearMonth + "-[\\d]{1,2}";
-                */
+                
+                // lecIdList가 다 만들어지면
                 events.clear();
                 // 일정이 있는 날짜에 점 표시
                 for (String lec_Uid : lecIdList) {
@@ -79,14 +76,18 @@ public class MergeScheduleActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot planDate : snapshot.getChildren()) {
                                 String date = (String) planDate.getKey();
+                                // ex) date : "2021-11-13"
                                 String[] datel = date.split("-");
+                                // 일정 날짜의 calendar 객체 생성
                                 Calendar cal = Calendar.getInstance();
                                 cal.set(Calendar.YEAR, Integer.parseInt(datel[0]));
                                 cal.set(Calendar.MONTH, Integer.parseInt(datel[1]) - 1);
                                 cal.set(Calendar.DATE, Integer.parseInt(datel[2]));
+                                // calendar 객체와 dot 이미지를 이용해 eventday 객체 생성
                                 EventDay eventDay = new EventDay(cal, R.drawable.mini_dot);
                                 events.add(eventDay);
                             }
+                            // calendarView에 적용
                             calendarView.setEvents(events);
                         }
 
@@ -104,6 +105,44 @@ public class MergeScheduleActivity extends AppCompatActivity {
             }
         });
 
+        Calendar selectedDate = calendarView.getSelectedDate();
+        String datekey = selectedDate.getTime().getYear()+1900 + "-" + (selectedDate.getTime().getMonth()+1) + "-" + selectedDate.getTime().getDate();
+
+        userLecRef.child("UserLectureInfo").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                todoList.clear();
+                for (String lec_Uid : lecIdList) {
+                    todoRef.child("TodoInfo").child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot Tododata : snapshot.getChildren()) {
+                                TodoInfo todoInfo = Tododata.getValue(TodoInfo.class);
+                                todoList.add(todoInfo);
+                            }
+                            adapter = new reAdapter(todoList, getApplicationContext());
+                            recyclerView.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // calendarView 에서 날짜가 선택됐을 경우
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
             public void onDayClick(EventDay eventDay) {
@@ -131,45 +170,5 @@ public class MergeScheduleActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Calendar selectedDate = calendarView.getSelectedDate();
-        String datekey = selectedDate.getTime().getYear()+1900 + "-" + (selectedDate.getTime().getMonth()+1) + "-" + selectedDate.getTime().getDate();
-
-        FirebaseUser user = mFirebaseAuth.getCurrentUser();
-        userLecRef.child("UserLectureInfo").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                todoList.clear();
-                for (String lec_Uid : lecIdList) {
-                    todoRef.child("TodoInfo").child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot Tododata : snapshot.getChildren()) {
-                                TodoInfo todoInfo = Tododata.getValue(TodoInfo.class);
-                                todoList.add(todoInfo);
-                            }
-                            adapter = new reAdapter(todoList, getApplicationContext());
-                            recyclerView.setAdapter(adapter);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
     }
 }
