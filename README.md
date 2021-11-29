@@ -156,7 +156,7 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 
 * 교수가 강의를 생성하기 위해 ClassListActivity에서 상단 버튼을 통해 넘어온 엑티비티
 * LectureInfo의 기본적인 속성 값들을 정의해주는 
-* 순서대로 강의명, 담당 교수 성함, 분반, 강의 요일 및 시간, DatePicker를 통한 시간 등을 등록 버튼을 통해 Onclick을 실행
+* 순서대로 강의명, 담당 교수 성함, 분반, 강의 요일 및 시간, DatePicker를 통한 시간 등을 강의 생성 버튼을 통해 Onclick을 실행
 * OnClickListener를 통해 각 EditTextView들의 입력 값을 문자열 포멧팅을 통해 Intent.PutExtra로 CreateLec_2_Activity에 넘겨줌
 * 이후 finish()를 통해 엑티비티를 끈다.
 * 이후 CreateLec_2_Activity에서 넘겨받은 인텐트 값들을 파이어베이스 데이터베이스에 DatabaseReference의 LectureInfo로 넘겨준다.
