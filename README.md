@@ -29,7 +29,7 @@ STUDENT NUMBER :
 ```
 전성재
 Role : 
-STUDENT NUMBER : 
+STUDENT NUMBER : 20172917
 ```
 
 ## 프로젝트 소개
