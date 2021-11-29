@@ -10,8 +10,8 @@ STUDENT NUMBER : 20172894
 
 ```
 강경민
-Role : 
-STUDENT NUMBER : 
+Role : Login Activity, Register Activity, Intro Activity, 다른팀원들의 Activity 부가기능 구현, UI/UX 디자인
+STUDENT NUMBER : 20151352 
 ```
 
 ```
@@ -22,8 +22,8 @@ STUDENT NUMBER : 20203169
 
 ```
 최은솔
-Role : 
-STUDENT NUMBER : 
+Role : TodoInfo 관련 액티비티 구현, 전체적인 UI 다듬기, 테스트&코드수정
+STUDENT NUMBER : 20171712
 ```
 
 ```
@@ -150,7 +150,7 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 * 상단의 "+" 버튼을 통해 사용자의 Authority에 따라 CreateLec_1_Activity(교수), SearchLecActivity(학생)으로 넘어가게됨  
 
 
-### CreateLec_1_Activity.java
+### CreateLecActivity.java
 
 ![image](https://user-images.githubusercontent.com/79959576/143799727-5613a58c-7936-49ad-8a8a-8863084ff6cf.png)
 
@@ -161,9 +161,27 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 * 이후 finish()를 통해 엑티비티를 끈다.
 * 이후 CreateLec_2_Activity에서 넘겨받은 인텐트 값들을 파이어베이스 데이터베이스에 DatabaseReference의 LectureInfo로 넘겨준다.
 
-### 강경민
-
 <hr>
+
+### 강경민
+### LoginActivity.java
+![LoginActivity](https://user-images.githubusercontent.com/74167204/143854558-b0fd553d-c09a-4e5a-8e24-6fc0b161ed66.PNG)
+* 가입된 E-mail과 Password를 입력하고 Login버튼을 누르면 로그인할수 있음.
+* 이메일 찾기 기능과 비밀번호 찾기 기능으로 이동할수 있음.
+* Create Account로 회원가입 페이지로 이동할수 있음.
+
+### RegisterActivity.java
+![RegisterActivity](https://user-images.githubusercontent.com/74167204/143855272-e496334f-3e5f-4873-8aad-f369314efd47.PNG)
+* Firebase의 Authenticaiton에 Users에 사용자를 추가한다.
+* 이메일 비밀번호 이름 학번 전화번호등을 Firebase의 UserInfo데이터 베이스에 저장한다.
+* 회원가입 정보에서 각종 특수문자나 공백 예외처리를 해준다.
+* 관리자인지 Rdaio버튼을 통해 선택가능함.
+
+### IntroActivity.java
+![IntroActivity](https://user-images.githubusercontent.com/74167204/143856476-424d5f48-1789-4efc-ad66-1271f67c6a46.PNG)
+* 앱 사용법이나 소개를 하는 페이지
+* ViewPager기능을 통해 화면을 드래그하거나 버튼을 누르면 다음 페이지를 보여주는 기능을 함.
+* IntroActivity에서 Action이 발생하면 OnboardingAdapter를 통해 각 페이지에 맞는 OnboardingItem클래스 객체를 받아 넘겨줌.
 
 ### 황재일
 ### FindEmailActivity.java
@@ -220,41 +238,67 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 <hr>
 
 ### 최은솔
-### AddScheduleActivity
-![image](https://user-images.githubusercontent.com/28581506/143822455-f0d7944e-77ba-482e-ac35-963f89a9694a.png)
+### AddScheduleActivity.java
+
+![https://user-images.githubusercontent.com/28581506/143822455-f0d7944e-77ba-482e-ac35-963f89a9694a.png](https://user-images.githubusercontent.com/28581506/143822455-f0d7944e-77ba-482e-ac35-963f89a9694a.png)
+
 - 일정 정보를 입력 후, 추가 버튼을 누르면 TodoInfo 데이터베이스에 일정 정보 저장
     - 일정 정보를 빈칸 없이 입력했을 경우
         - scheduleActivity에서 인텐트로 받아온 lecUid를 이용
         - 데이터베이스의 TodoInfo – lecUid – date 에 접근하여 todoInfo 객체 데이터 추가
     - 빈 내용이 있을 경우 토스트 메시지를 이용해 빈칸을 채워달라는 메시지를 띄운다
 - datePicker
-    - scheduleActivity에서 인텐트로 받아온 날짜 데이터(달력에서 선택된 날짜)로 datePicker를 초기화시키고
-    - onDateChangedListener()를 이용해 datePicker에 리스너를 등록하여 datePicker의 데이터가 변경되었을 경우, 변경된 날짜로 todoInfo의 date 변수를 새로 set해준다
+    - 달력에서 선택된 날짜로 datePicker를 초기화시키고
+    - onDateChangedListener()를 이용해 datePicker에 리스너를 등록하여 datePicker의 데이터가 변경되었을 경우, 변경된 날짜로 todoInfo의 date 속성을 새로 set해준다
 - 일정 정보를 DB에 저장한 후에는 액티비티를 finish() 하여 scheduleActivity로 돌아간다
 
-### MergeScheduleActivity
-![image](https://user-images.githubusercontent.com/28581506/143822721-53f776e0-026f-4120-af2e-1c91494d6820.png)
-- 강의 채널 리스트에서 맨 위에 있는 모든 일정 채널을 클릭하면, 내가 속한 모든 채널의 일정을 모아 띄워주는 달력 보기 가능
+### MergeScheduleActivity.java
+
+![https://user-images.githubusercontent.com/28581506/143822721-53f776e0-026f-4120-af2e-1c91494d6820.png](https://user-images.githubusercontent.com/28581506/143822721-53f776e0-026f-4120-af2e-1c91494d6820.png)
+
+- 강의 채널 리스트에서 맨 위에 있는 모든 일정 채널을 클릭하면, 내가 속한 모든 강의 채널의 일정을 모아 띄워주는 달력
 - onCreate()
-    - addListenerForSingleValueEvent 를 이용하여 UserLectureInfo 데이터베이스의 데이터를 읽어, 사용자가 속해있는 강의 채널 id 리스트인 lecIdList를 생성한다.
-    - 리스트가 다 만들어 지면, lecIdList의 원소에 하나씩 접근하며,  addListenerForSingleValueEvent 를 이용하여 데이터베이스의 TodoInfo-lecUid 에 접근
-        
-        ![image](https://user-images.githubusercontent.com/28581506/143822852-f4b9728a-5e35-4079-8637-4c2190dcccd9.png)
-        - TodoInfo - lecId 의 children 들의 key (일정 날짜)를 이용해
+    - UserLectureInfo 데이터베이스의 데이터를 읽어, 사용자가 속해있는 강의 채널 id 를 모두 모은 리스트인 lecIdList를 생성한다.
+    - 유저가 속한 모든 강의 채널의 일정 날짜에 아이콘 표시
+        - lecIdList의 원소에 하나씩 접근하며, 데이터베이스내의 TodoInfo - lecUid 에 접근
+            
+            ![https://user-images.githubusercontent.com/28581506/143822852-f4b9728a-5e35-4079-8637-4c2190dcccd9.png](https://user-images.githubusercontent.com/28581506/143822852-f4b9728a-5e35-4079-8637-4c2190dcccd9.png)
+            
+        - TodoInfo - lecUid 의 children 들의 key (일정 날짜)를 이용해
         - 일정이 있는 날짜의 calendar 객체를 만들고
         - calendar 객체와 dot 이미지를 이용하여 Eventday객체 리스트를 만들어
-        - calendarView의 setEvents 를 이용하여 일정이 있는 날짜에 dot 이 찍히도록 하였다.
-    - 그리고 calendarView에서 날짜가 클릭 됐을 때를 처리하기 위해, setOnDayClickListener 를 이용해 calendarView에 이벤트 리스터를 등록하고, onDayClick 메소드를 Override 한다.
-        - addListenerForSingleValueEvent 를 이용하여 TodoInfo 데이터베이스에 접근해, 선택된 날짜에 내가 속한 강의들의 모든 일정을 모아 todoList 를 구성한다.
-        - todoList를 이용해 reAdapter객체인 adapter를 생성하고,
-        recyclerView (달력 아래 일정 리스트를 보여주는) 에 setAdapter를 이용해 adapter를 지정해주어, 달력아래 recyclerView에 일정 리스트가 보여질 수 있도록 합니다.
+        - calendarView의 setEvents 를 이용하여 일정이 있는 날짜에 dot 아이콘이 표시되도록 하였다.
+    - '모든 일정' 채널에 처음 들어왔을 때, 선택돼 있는 날짜(=오늘 날짜)에 내가 속한 강의들의 모든 일정을 recyclerView에 띄우기
+        - 선택돼 있는 날짜(=오늘 날짜)에 내가 속한 강의들의 모든 일정 데이터를 TodoInfo 데이터베이스에서 읽어와 todoList를 구성하고
+        - todoList를 이용해 reAdapter객체 adapter 생성
+        - recyclerView(달력 아래 일정 리스트를 보여주는 뷰)에 setAdapter를 이용해 adapter를 지정해주어 달력아래 recyclerView에 일정 리스트가 보여질 수 있도록 합니다.
 - onResume()
-    - '모든 일정' 채널에 처음 들어왔을 때, 선택돼 있는 날짜 (=오늘 날짜)에 내가 속한 강의들의 모든 일정을 가져와 todoList를 구성하고
-    - todoList를 이용해 reAdapter객체 생성 – adapter
-    recyclerView에 setAdapter를 이용해 adapter를 지정해주어 달력아래 recyclerView에 일정 리스트가 보여질 수 있도록 합니다.
+    - 달력에서 날짜를 클릭하면 그 날짜에 있는 모든 일정 띄우기
+        - calendarView에서 날짜가 클릭 됐을 때를 처리하기 위해, setOnDayClickListener 를 이용해 calendarView에 이벤트 리스터를 등록하고, onDayClick 메소드를 Override 한다.
+        - TodoInfo 데이터베이스에 접근해, 선택된 날짜에 내가 속한 강의들의 모든 일정을 모아 todoList 를 구성한다.
+        - todoList를 이용해 reAdapter객체 adapter 생성
+        - recyclerView에 setAdapter를 이용해 adapter를 지정해주어, 달력아래 recyclerView에 일정 리스트가 보여질 수 있도록 합니다.
+    
 
 <hr>
 
 ### 전성재
+### ScheduleActivity
+![123123](https://user-images.githubusercontent.com/84118644/143836439-3304b908-d783-4153-9ce3-df5d32e99abb.JPG)
+* 교수가 로그인을 하고 들어가면 보이는 날짜별 일정 리스트
+* 화면의 RecyclerView에 TodoInfo 데이터베이스에 등록되어 있는 정보들을 가공하여 표시한다.
+  * DatabaseReference의 addListenerForSingleValueEvent를 사용하여 데이터베이스를 참조한다.
+* 교수가 해당 날짜에 등록한 일정(강의, 퀴즈, 시험, 과제)을 리사이클러 형식으로 구성
+* 오른쪽 하단의 "+" 버튼을 통해 사용자의 Authority에 따라 AddScheduleActivity으로 넘어가게 된다.
+* reAdapter에 있는 정보를 ViewHolder를 통해 list_item.xml과 연결하여 배치한다. 이후 RecyclerView에 연결하고 ViewHolder를 통해 화면에 노출한다.
+* list_item.xml의 휴지통 모양을 클릭하면 일정이 삭제된다.
 
+### Schedule2Activity
+![123](https://user-images.githubusercontent.com/84118644/143849254-5aee9288-de13-4b36-a7c7-8c830a5e0119.JPG)
+* 학생 로그인을 하고 들어가면 보이는 날짜별 일정 리스트
+* 화면의 RecyclerView에 TodoInfo 데이터베이스에 등록되어 있는 정보들을 가공하여 표시한다.
+  * DatabaseReference의 addListenerForSingleValueEvent를 사용하여 데이터베이스를 참조한다.
+* ScheduleActivity와는 다르게 학생이 함부로 일정을 추가할 수 없게 하기 위해서 "+" 버튼을 없앴다.
+* reAdapter에 있는 정보를 ViewHolder를 통해 list_item2.xml과 연결하여 배치한다. 이후 RecyclerView에 연결하고 ViewHolder를 통해 화면에 노출한다.
+* list_item2.xml는 list_item.xml과 다르게 학생이 삭제할 수 없도록 하기 위해 휴지통 모양을 없앴다.
 <hr>
