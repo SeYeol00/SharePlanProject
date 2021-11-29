@@ -161,6 +161,8 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 * 이후 finish()를 통해 엑티비티를 끈다.
 * 이후 CreateLec_2_Activity에서 넘겨받은 인텐트 값들을 파이어베이스 데이터베이스에 DatabaseReference의 LectureInfo로 넘겨준다.
 
+<hr>
+
 ### 강경민
 ### LoginActivity.java
 ![LoginActivity](https://user-images.githubusercontent.com/74167204/143854558-b0fd553d-c09a-4e5a-8e24-6fc0b161ed66.PNG)
