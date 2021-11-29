@@ -238,7 +238,7 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 <hr>
 
 ### 최은솔
-### AddScheduleActivity
+### AddScheduleActivity.java
 
 ![https://user-images.githubusercontent.com/28581506/143822455-f0d7944e-77ba-482e-ac35-963f89a9694a.png](https://user-images.githubusercontent.com/28581506/143822455-f0d7944e-77ba-482e-ac35-963f89a9694a.png)
 
@@ -252,7 +252,7 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
     - onDateChangedListener()를 이용해 datePicker에 리스너를 등록하여 datePicker의 데이터가 변경되었을 경우, 변경된 날짜로 todoInfo의 date 속성을 새로 set해준다
 - 일정 정보를 DB에 저장한 후에는 액티비티를 finish() 하여 scheduleActivity로 돌아간다
 
-### MergeScheduleActivity
+### MergeScheduleActivity.java
 
 ![https://user-images.githubusercontent.com/28581506/143822721-53f776e0-026f-4120-af2e-1c91494d6820.png](https://user-images.githubusercontent.com/28581506/143822721-53f776e0-026f-4120-af2e-1c91494d6820.png)
 
