@@ -10,8 +10,8 @@ STUDENT NUMBER : 20172894
 
 ```
 강경민
-Role : 
-STUDENT NUMBER : 
+Role : Login Activity, Register Activity, Intro Activity, 다른팀원들의 Activity 부가기능 구현, UI/UX 디자인
+STUDENT NUMBER : 20151352 
 ```
 
 ```
