@@ -268,7 +268,8 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
         - 일정이 있는 날짜의 calendar 객체를 만들고
         - calendar 객체와 dot 이미지를 이용하여 Eventday객체 리스트를 만들어
         - calendarView의 setEvents 를 이용하여 일정이 있는 날짜에 dot 아이콘이 표시되도록 하였다.
-    - '모든 일정' 채널에 처음 들어왔을 때, 선택돼 있는 날짜(=오늘 날짜)에 내가 속한 강의들의 모든 일정을 TodoInfo 에서 읽어와 todoList를 구성하고
+    - '모든 일정' 채널에 처음 들어왔을 때, 선택돼 있는 날짜(=오늘 날짜)에 내가 속한 강의들의 모든 일정을 recyclerView에 띄우기
+        - 선택돼 있는 날짜(=오늘 날짜)에 내가 속한 강의들의 모든 일정 데이터를 TodoInfo 데이터베이스에서 읽어와 todoList를 구성하고
         - todoList를 이용해 reAdapter객체 adapter 생성
         - recyclerView에 setAdapter를 이용해 adapter를 지정해주어 달력아래 recyclerView에 일정 리스트가 보여질 수 있도록 합니다.
 - onResume()
