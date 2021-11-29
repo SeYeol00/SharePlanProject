@@ -259,15 +259,17 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 - 강의 채널 리스트에서 맨 위에 있는 모든 일정 채널을 클릭하면, 내가 속한 모든 강의 채널의 일정을 모아 띄워주는 달력
 - onCreate()
     - UserLectureInfo 데이터베이스의 데이터를 읽어, 사용자가 속해있는 강의 채널 id 를 모두 모은 리스트인 lecIdList를 생성한다.
-    - 리스트가 다 만들어 지면, lecIdList의 원소에 하나씩 접근하며, 데이터베이스내의 TodoInfo - lecUid 에 접근
-        
-        ![https://user-images.githubusercontent.com/28581506/143822852-f4b9728a-5e35-4079-8637-4c2190dcccd9.png](https://user-images.githubusercontent.com/28581506/143822852-f4b9728a-5e35-4079-8637-4c2190dcccd9.png)
-        
+    - 유저가 속한 모든 강의 채널 일정을 달력에 아이콘 표시
+        - 리스트가 다 만들어 지면, lecIdList의 원소에 하나씩 접근하며, 데이터베이스내의 TodoInfo - lecUid 에 접근
+            
+            ![https://user-images.githubusercontent.com/28581506/143822852-f4b9728a-5e35-4079-8637-4c2190dcccd9.png](https://user-images.githubusercontent.com/28581506/143822852-f4b9728a-5e35-4079-8637-4c2190dcccd9.png)
+            
         - TodoInfo - lecUid 의 children 들의 key (일정 날짜)를 이용해
         - 일정이 있는 날짜의 calendar 객체를 만들고
         - calendar 객체와 dot 이미지를 이용하여 Eventday객체 리스트를 만들어
         - calendarView의 setEvents 를 이용하여 일정이 있는 날짜에 dot 아이콘이 표시되도록 하였다.
-    - calendarView에서 날짜가 클릭 됐을 때를 처리하기 위해, setOnDayClickListener 를 이용해 calendarView에 이벤트 리스터를 등록하고, onDayClick 메소드를 Override 한다.
+    - 달력에서 날짜를 클릭하면 그 날짜에 있는 모든 일정 띄우기
+        - calendarView에서 날짜가 클릭 됐을 때를 처리하기 위해, setOnDayClickListener 를 이용해 calendarView에 이벤트 리스터를 등록하고, onDayClick 메소드를 Override 한다.
         - TodoInfo 데이터베이스에 접근해, 선택된 날짜에 내가 속한 강의들의 모든 일정을 모아 todoList 를 구성한다.
         - todoList를 이용해 reAdapter객체 adapter 생성
         - recyclerView (달력 아래 일정 리스트를 보여주는 뷰) 에 setAdapter를 이용해 adapter를 지정해주어, 달력아래 recyclerView에 일정 리스트가 보여질 수 있도록 합니다.
