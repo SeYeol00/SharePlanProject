@@ -224,6 +224,8 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
     - scheduleActivity에서 인텐트로 받아온 달력에서 선택된 날짜로 초기화되고
     - onDateChangedListener()를 이용해 datePicker에 리스너를 등록하여 데이트 피커의 데이터가 변경되었을 경우 변경된 날짜로 todoInfo의 date 변수를 새로 set해준다
 - 일정 정보를 DB에 저장한 후에는 액티비티 finish() 하여 scheduleActivity로 돌아간다
+
+### MergeScheduleActivity.java
 <hr>
 
 ### 전성재
