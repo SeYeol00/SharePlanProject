@@ -259,7 +259,7 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 - 강의 채널 리스트에서 맨 위에 있는 모든 일정 채널을 클릭하면, 내가 속한 모든 강의 채널의 일정을 모아 띄워주는 달력
 - onCreate()
     - UserLectureInfo 데이터베이스의 데이터를 읽어, 사용자가 속해있는 강의 채널 id 를 모두 모은 리스트인 lecIdList를 생성한다.
-    - 유저가 속한 모든 강의 채널 일정을 달력에 아이콘 표시
+    - 유저가 속한 모든 강의 채널의 일정 날짜에 아이콘 표시
         - lecIdList의 원소에 하나씩 접근하며, 데이터베이스내의 TodoInfo - lecUid 에 접근
             
             ![https://user-images.githubusercontent.com/28581506/143822852-f4b9728a-5e35-4079-8637-4c2190dcccd9.png](https://user-images.githubusercontent.com/28581506/143822852-f4b9728a-5e35-4079-8637-4c2190dcccd9.png)
