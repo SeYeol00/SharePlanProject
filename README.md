@@ -28,8 +28,8 @@ STUDENT NUMBER :
 
 ```
 전성재
-Role : 
-STUDENT NUMBER : 
+Role : Schedule 관련 액티비티 구현, 다른 팀원 구현 보조, 회의록 관리, 구글 플레이스토어  등록과 공모전 관련 리서치, 디자인 보조
+STUDENT NUMBER : 20172917
 ```
 
 ## 프로젝트 소개
@@ -139,7 +139,7 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 
 ### 박세열
 ### ClassListActivity.java
-![image](https://user-images.githubusercontent.com/79959576/143798622-29088161-222b-438c-9442-552d36afc56a.png)
+![image](https://user-images.githubusercontent.com/79959576/143796835-52bd9fdc-1eaa-45b5-9c71-1bf361c51e87.png)
 * 학생이나 교수가 로그인을 하고 들어가면 보이는 강의 리스트
 * 화면의 ListView에 UserLectureInfo 데이터베이스에 등록되어있는 정보들을 가공하여 표시해줌.
   * 데이터베이스 참조를 위해 DatabaseReference의 addListenerForSingleValueEvent를 이용함.
