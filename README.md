@@ -216,15 +216,14 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 
 ### 최은솔
 ### AddScheduleActivity.java
-
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/676b13cb-bce7-4b9c-a452-8a8a13619242/Untitled.png)
-
 - 일정 정보를 입력 후, 추가 버튼을 누르면 TodoInfo 데이터베이스에 일정 정보 저장
     - 일정 정보를 빈칸 없이 입력했을 경우
         - scheduleActivity에서 인텐트로 받아온 lecUid를 이용해 DB – TodoInfo – lecUid – date 에 todoInfo 객체 데이터 추가
-    - 빈 내용이 있을 경우 토스트 메시지를 이용해 빈칸을 채워달라는 메시지 띄움
-- 일정 정보를 DB에 저장한 후 액티비티 finish() 하여 scheduleActivity로 돌아감
-- datePicker는 scheduleActivity에서 인텐트로 받아온 달력에서 선택된 날짜로 초기화되고, onDateChangedListener()를 이용해 datePicker에 리스너를 등록하여 데이트 피커의 데이터가 변경되었을 경우 변경된 날짜로 todoInfo의 date 변수를 새로 set해준다.
+    - 빈 내용이 있을 경우 토스트 메시지를 이용해 빈칸을 채워달라는 메시지를 띄운다
+- datePicker
+    - scheduleActivity에서 인텐트로 받아온 달력에서 선택된 날짜로 초기화되고
+    - onDateChangedListener()를 이용해 datePicker에 리스너를 등록하여 데이트 피커의 데이터가 변경되었을 경우 변경된 날짜로 todoInfo의 date 변수를 새로 set해준다
+- 일정 정보를 DB에 저장한 후에는 액티비티 finish() 하여 scheduleActivity로 돌아간다
 <hr>
 
 ### 전성재
