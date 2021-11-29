@@ -10,8 +10,8 @@ STUDENT NUMBER : 20172894
 
 ```
 강경민
-Role : 
-STUDENT NUMBER : 
+Role : Login Activity, Register Activity, Intro Activity, 다른팀원들의 Activity 부가기능 구현, UI/UX 디자인
+STUDENT NUMBER : 20151352 
 ```
 
 ```
@@ -162,8 +162,24 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 * 이후 CreateLec_2_Activity에서 넘겨받은 인텐트 값들을 파이어베이스 데이터베이스에 DatabaseReference의 LectureInfo로 넘겨준다.
 
 ### 강경민
+### LoginActivity.java
+![LoginActivity](https://user-images.githubusercontent.com/74167204/143854558-b0fd553d-c09a-4e5a-8e24-6fc0b161ed66.PNG)
+* 가입된 E-mail과 Password를 입력하고 Login버튼을 누르면 로그인할수 있음.
+* 이메일 찾기 기능과 비밀번호 찾기 기능으로 이동할수 있음.
+* Create Account로 회원가입 페이지로 이동할수 있음.
 
-<hr>
+### RegisterActivity.java
+![RegisterActivity](https://user-images.githubusercontent.com/74167204/143855272-e496334f-3e5f-4873-8aad-f369314efd47.PNG)
+* Firebase의 Authenticaiton에 Users에 사용자를 추가한다.
+* 이메일 비밀번호 이름 학번 전화번호등을 Firebase의 UserInfo데이터 베이스에 저장한다.
+* 회원가입 정보에서 각종 특수문자나 공백 예외처리를 해준다.
+* 관리자인지 Rdaio버튼을 통해 선택가능함.
+
+### IntroActivity.java
+![IntroActivity](https://user-images.githubusercontent.com/74167204/143856476-424d5f48-1789-4efc-ad66-1271f67c6a46.PNG)
+* 앱 사용법이나 소개를 하는 페이지
+* ViewPager기능을 통해 화면을 드래그하거나 버튼을 누르면 다음 페이지를 보여주는 기능을 함.
+* IntroActivity에서 Action이 발생하면 OnboardingAdapter를 통해 각 페이지에 맞는 OnboardingItem클래스 객체를 받아 넘겨줌.
 
 ### 황재일
 ### FindEmailActivity.java
