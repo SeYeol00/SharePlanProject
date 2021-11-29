@@ -216,6 +216,7 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 
 ### 최은솔
 ### AddScheduleActivity.java
+![image](https://user-images.githubusercontent.com/28581506/143822455-f0d7944e-77ba-482e-ac35-963f89a9694a.png)
 - 일정 정보를 입력 후, 추가 버튼을 누르면 TodoInfo 데이터베이스에 일정 정보 저장
     - 일정 정보를 빈칸 없이 입력했을 경우
         - scheduleActivity에서 인텐트로 받아온 lecUid를 이용해 DB – TodoInfo – lecUid – date 에 todoInfo 객체 데이터 추가
@@ -226,10 +227,12 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 - 일정 정보를 DB에 저장한 후에는 액티비티 finish() 하여 scheduleActivity로 돌아간다
 
 ### MergeScheduleActivity.java
+![image](https://user-images.githubusercontent.com/28581506/143822721-53f776e0-026f-4120-af2e-1c91494d6820.png)
 - 강의 채널 리스트에서 맨 위에 있는 모든 일정 채널을 클릭하면, 내가 속한 모든 채널의 일정을 모아 띄워주는 달력 보기 가능
 - onCreate()
     - addListenerForSingleValueEvent 를 이용하여 UserLectureInfo 데이터베이스의 데이터를 읽어, 사용자가 속해있는 강의 채널 id 리스트인 lecIdList를 생성한다.
     - 리스트가 다 만들어 지면, lecIdList의 원소를 이용해 TodoInfo 데이터베이스의 데이터를 읽어,        
+        ![image](https://user-images.githubusercontent.com/28581506/143822852-f4b9728a-5e35-4079-8637-4c2190dcccd9.png)
         - TodoInfo - lecId 의 children 들의 key (일정 날짜)를 이용해
         - 일정이 있는 날짜의 calendar 객체를 만들고
         - 이 객체와 dot 이미지를 이용하여 Eventday객체 리스트를 만들어
