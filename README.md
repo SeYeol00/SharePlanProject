@@ -271,6 +271,10 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
         - TodoInfo 데이터베이스에 접근해, 선택된 날짜에 내가 속한 강의들의 모든 일정을 모아 todoList 를 구성한다.
         - todoList를 이용해 reAdapter객체 adapter 생성
         - recyclerView (달력 아래 일정 리스트를 보여주는 뷰) 에 setAdapter를 이용해 adapter를 지정해주어, 달력아래 recyclerView에 일정 리스트가 보여질 수 있도록 합니다.
+- onResume()
+    - '모든 일정' 채널에 처음 들어왔을 때, 선택돼 있는 날짜(=오늘 날짜)에 내가 속한 강의들의 모든 일정을 TodoInfo 에서 읽어와 todoList를 구성하고
+    - todoList를 이용해 reAdapter객체 adapter 생성
+    - recyclerView에 setAdapter를 이용해 adapter를 지정해주어 달력아래 recyclerView에 일정 리스트가 보여질 수 있도록 합니다.
 
 <hr>
 
