@@ -131,9 +131,6 @@ public class MergeScheduleActivity extends AppCompatActivity {
 
             }
         });
-
-
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -146,13 +143,8 @@ public class MergeScheduleActivity extends AppCompatActivity {
         userLecRef.child("UserLectureInfo").child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                lecIdList.clear();
-                for(DataSnapshot lecId : snapshot.getChildren()) {
-                    lecIdList.add((String) lecId.getValue());
-                }
-
+                todoList.clear();
                 for (String lec_Uid : lecIdList) {
-                    System.out.println(lec_Uid);
                     todoRef.child("TodoInfo").child(lec_Uid).child(datekey).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
