@@ -226,6 +226,23 @@ N개의 강의가 0 ~ N-1까지의 UID로 저장된다.
 - 일정 정보를 DB에 저장한 후에는 액티비티 finish() 하여 scheduleActivity로 돌아간다
 
 ### MergeScheduleActivity.java
+- 강의 채널 리스트에서 맨 위에 있는 모든 일정 채널을 클릭하면, 내가 속한 모든 채널의 일정을 모아 띄워주는 달력 보기 가능
+    - onCreate()
+        - addListenerForSingleValueEvent 를 이용하여 UserLectureInfo 데이터베이스의 데이터를 읽어, 사용자가 속해있는 강의 채널 id 리스트인 lecIdList를 생성한다.
+        - 리스트가 다 만들어 지면, lecIdList의 원소를 이용해 TodoInfo 데이터베이스의 데이터를 읽어,            
+            - TodoInfo - lecId 의 children 들의 key (일정 날짜)를 이용해
+            - 일정이 있는 날짜의 calendar 객체를 만들고
+            - 이 객체와 dot 이미지를 이용하여 Eventday객체 리스트를 만들어
+            - calendarView의 setEvents 를 이용하여 일정이 있는 날짜에 dot 이 찍히도록 하였다.
+        - 그리고 calendarView에서 날짜가 클릭 됐을 때를 처리하기 위해, setOnDayClickListener 를 이용해 calendarView에 이벤트 리스터를 등록하고, onDayClick 메소드를 Override 한다.
+            - TodoInfo 데이터베이스에 접근해 선택된 날짜에 내가 속한 강의들의 일정 객체인 todoInfo 객체를 모아 todoList를 구성한다
+            - todoList를 이용해 reAdapter객체 생성 – adapter
+            recyclerView (달력 아래 일정 리스트를 보여주는) 에 setAdapter를 이용해 adapter를 지정해주어 달력아래 recyclerView에 일정 리스트가 띄워지도록 합니다.
+    - onResume()
+        - 모든 일정 채널에 처음 들어왔을 때, 선택돼 있는 날짜 (=오늘 날짜)에 내가 속한 강의들의 모든 일정을 가져와 todoList를 구성하고
+        - todoList를 이용해 reAdapter객체 생성 – adapter
+        recyclerView (달력 아래 일정 리스트를 보여주는) 에 setAdapter를 이용해 adapter를 지정해주어 달력아래 recyclerView에 일정 리스트가 띄워지도록 합니다.
+
 <hr>
 
 ### 전성재
